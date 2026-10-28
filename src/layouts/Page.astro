@@ -4,9 +4,9 @@ import Base from './Base.astro';
 import Button from '../components/ui/Button.astro';
 import { config, waDisplay, waHref } from '../config';
 
-type Props = { title: string; description: string };
+type Props = { title: string; description: string; noindex?: boolean };
 
-const { title, description } = Astro.props;
+const { title, description, noindex } = Astro.props;
 const cols = [
   { label: 'Belli', links: [['/', 'Beranda'], ['/#harga', 'Harga'], ['/#faq', 'Tanya jawab'], ['/blog', 'Blog'], ['/kontak', 'Kontak']] },
   { label: 'Kontak', links: [[waHref, `WhatsApp ${waDisplay}`], [`mailto:${config.email}`, `Email ${config.email}`]] },
@@ -17,7 +17,7 @@ const navLink = 'text-[15px] font-medium leading-none text-body no-underline px-
 const here = (href: string) => (Astro.url.pathname.replace(/\/$/, '') === href ? 'page' : undefined);
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} noindex={noindex}>
   <div id="top" class="min-h-dvh flex flex-col bg-white">
     <header>
       <div class="max-w-[1248px] mx-auto px-6 py-[18px] flex items-center justify-between gap-4">
@@ -33,7 +33,7 @@ const here = (href: string) => (Astro.url.pathname.replace(/\/$/, '') === href ?
       </div>
     </header>
 
-    <main class="flex-1 w-full max-w-[1200px] mx-auto px-6 pt-[72px] pb-24 max-sm:pt-12">
+    <main id="konten" tabindex="-1" class="outline-none flex-1 w-full max-w-[1200px] mx-auto px-6 pt-[72px] pb-24 max-sm:pt-12">
       <slot />
     </main>
 

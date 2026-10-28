@@ -16,11 +16,29 @@ import Faq from '../sections/Faq.astro';
 import DevBand from '../sections/DevBand.astro';
 import FinalCta from '../sections/FinalCta.astro';
 import Footer from '../sections/Footer.astro';
-import { config } from '../config';
+import { config, waNumber } from '../config';
+
+const site = 'https://belli.id/';
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': site + '#organization',
+    name: 'Belli',
+    url: site,
+    logo: site + 'favicon.png',
+    email: config.email,
+    telephone: '+' + waNumber,
+    address: { '@type': 'PostalAddress', addressLocality: 'Bekasi', addressRegion: 'Jawa Barat', addressCountry: 'ID' },
+    founder: { '@type': 'Person', name: 'Iqbal Hamdani', sameAs: 'https://www.linkedin.com/in/iqbalhamdani/' },
+  },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Belli', url: site, inLanguage: 'id-ID', publisher: { '@id': site + '#organization' } },
+];
 ---
 
-<Base>
+<Base schema={schema}>
   <div class="bg-white overflow-x-clip">
+    <main>
     <Hero />
     <Marquee />
     <Problem />
@@ -37,6 +55,7 @@ import { config } from '../config';
       <DevBand />
     </div>
     <FinalCta />
+    </main>
     <Footer />
   </div>
 </Base>

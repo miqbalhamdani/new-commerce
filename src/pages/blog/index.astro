@@ -16,14 +16,14 @@ const cats = [
 ];
 ---
 
-<Blog title="Blog · Belli" description="Panduan katalog, foto produk, dan jualan lewat WhatsApp, ditulis oleh pembuat Belli.">
+<Blog title="Blog Belli: panduan katalog dan jualan lewat WhatsApp" description="Panduan katalog, foto produk, dan jualan lewat WhatsApp untuk brand lokal, ditulis langsung oleh pembuat Belli.">
   <div class="max-w-[1200px] mx-auto px-6 pt-12 flex flex-col gap-[18px]">
     <span class="text-[13px] font-semibold leading-none tracking-[.1em] uppercase text-primary">Blog</span>
     <h1 class="m-0 max-w-[780px] text-[clamp(40px,5.6vw,64px)] leading-[1.04] font-semibold tracking-[-.03em] text-balance">Catatan untuk brand yang jualan sendiri.</h1>
     <p class="m-0 max-w-[620px] text-[19px] leading-[1.6] text-body text-pretty">Panduan katalog, foto produk, dan jualan lewat WhatsApp, ditulis oleh pembuat Belli.</p>
   </div>
 
-  <main data-blog class="max-w-[1248px] mx-auto px-6 pt-12 pb-24 flex flex-col gap-14">
+  <div data-blog class="max-w-[1248px] mx-auto px-6 pt-12 pb-24 flex flex-col gap-14">
     {
       featured && (
         <a
@@ -78,7 +78,7 @@ const cats = [
         {posts.map((p) => <PostCard post={p} data-cat={catKey(p.data.category)} data-featured={p === featured ? '' : undefined} hidden={p === featured} />)}
       </div>
     </div>)}
-  </main>
+  </div>
 </Blog>
 
 <script>

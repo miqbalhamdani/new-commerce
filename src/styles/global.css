@@ -2,17 +2,17 @@
 
 /* shadcn-style token names, v8 design values. Light theme only, like the design. */
 @theme {
-  --font-sans: Outfit, system-ui, sans-serif;
-  --font-hand: Caveat, cursive;
-  --font-mono: 'DM Mono', ui-monospace, Menlo, Consolas, monospace;
+  --font-sans: var(--font-outfit);
+  --font-hand: var(--font-caveat);
+  --font-mono: var(--font-dm-mono);
 
-  --color-primary: #2f6bff;
+  --color-primary: #2664ff; /* 4.5:1 on white and on muted; the design's #2f6bff was 4.49:1 */
   --color-primary-hover: #1e4fd8;
   --color-primary-deep: #1b3f9e;
   --color-foreground: #101828;
   --color-body: #475467;
   --color-body-strong: #344054;
-  --color-muted-foreground: #667085;
+  --color-muted-foreground: #656f84; /* one step darker than #667085 so 4.5:1 also holds on accent and canvas */
   --color-faint: #98a2b3;
   --color-border: #e4e7ec;
   --color-border-soft: #f2f4f7;

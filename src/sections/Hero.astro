@@ -19,7 +19,7 @@ const HERO_PRICE = '689.000';
   <div class="relative max-w-[1200px] mx-auto text-white">
     <SiteHeader />
 
-    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,400px),1fr))] gap-x-12 gap-y-9 items-center px-6 pt-9 pb-16">
+    <div id="konten" tabindex="-1" class="outline-none grid grid-cols-[repeat(auto-fit,minmax(min(100%,400px),1fr))] gap-x-12 gap-y-9 items-center px-6 pt-9 pb-16">
       <div class="flex flex-col gap-[22px] max-w-[600px]">
         <h1 class="m-0 text-[clamp(36px,4.8vw,62px)] leading-[1.06] font-semibold tracking-[-.025em] text-pretty">Website brand sendiri. Ganti harga tanpa developer.</h1>
         <p class="m-0 text-[clamp(16px,1.4vw,19px)] leading-[1.55] text-periwinkle max-w-[540px] text-pretty">
@@ -38,7 +38,7 @@ const HERO_PRICE = '689.000';
       </div>
 
       <!-- Website ← dashboard, with the price-sync loop (script below sets data-stage) -->
-      <div data-hero data-stage="2" class="group/hero relative pb-[78px] max-[560px]:pb-0">
+      <div data-hero data-stage="2" aria-hidden="true" class="group/hero relative pb-[78px] max-[560px]:pb-0">
         <div class="relative w-[82%] max-[560px]:w-full">
           <Badge variant="sticker" rotate={-3} class="absolute -top-3.5 left-4 z-[2]">Website brand-mu</Badge>
           <BrowserFrame url="sleepproject.id" maxUrl="max-w-[282px]" class="rounded-2xl text-foreground shadow-[0_50px_90px_-30px_rgba(10,19,48,.65),0_0_0_1px_rgba(255,255,255,.12)]">
@@ -116,7 +116,7 @@ const HERO_PRICE = '689.000';
                 <Badge variant="success" class="text-[9.5px] transition-opacity duration-[400ms] group-data-[stage=0]/hero:opacity-0"
                   ><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>Tersimpan · tampil di website</Badge
                 >
-                <span data-h="save" class="text-[10px] font-semibold leading-none text-white rounded-md px-2.5 py-[7px] transition-[background-color] duration-300 bg-faint group-data-[stage=0]/hero:bg-primary">Tersimpan</span>
+                <span data-h="save" class="text-[10px] font-semibold leading-none text-white rounded-md px-2.5 py-[7px] transition-[background-color] duration-300 bg-muted-foreground group-data-[stage=0]/hero:bg-primary">Tersimpan</span>
               </div>
             </div>
           </div>

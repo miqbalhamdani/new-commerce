@@ -57,7 +57,7 @@ const boxLabel = 'text-[9.5px] font-semibold leading-none text-muted-foreground 
     <div class="grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-x-12 gap-y-8 items-center">
     <div class="grid items-start">
       <!-- Slide 1: product editor -->
-      <div data-slide="0" data-active="true" class:list={[slide, 'bg-[linear-gradient(135deg,#ECF3FF_0%,#F6F9FF_100%)] pt-5 pl-6']}>
+      <div data-slide="0" data-active="true" aria-hidden="true" class:list={[slide, 'bg-[linear-gradient(135deg,#ECF3FF_0%,#F6F9FF_100%)] pt-5 pl-6']}>
         {
           stickers && (
             <div class="flex items-end gap-1.5 text-navy pr-6">
@@ -107,7 +107,7 @@ const boxLabel = 'text-[9.5px] font-semibold leading-none text-muted-foreground 
       </div>
 
       <!-- Slide 2: spreadsheet import -->
-      <div data-slide="1" data-active="false" class:list={[slide, 'bg-[linear-gradient(225deg,#ECF3FF_0%,#F6F9FF_100%)] pt-5 pr-6']}>
+      <div data-slide="1" data-active="false" aria-hidden="true" class:list={[slide, 'bg-[linear-gradient(225deg,#ECF3FF_0%,#F6F9FF_100%)] pt-5 pr-6']}>
         {
           stickers && (
             <div class="flex items-end justify-end gap-1.5 text-navy pl-6">
@@ -164,7 +164,7 @@ const boxLabel = 'text-[9.5px] font-semibold leading-none text-muted-foreground 
       </div>
 
       <!-- Slide 3: blog editor -->
-      <div data-slide="2" data-active="false" class:list={[slide, 'bg-[linear-gradient(135deg,#ECF3FF_0%,#F6F9FF_100%)] pt-5 pl-6']}>
+      <div data-slide="2" data-active="false" aria-hidden="true" class:list={[slide, 'bg-[linear-gradient(135deg,#ECF3FF_0%,#F6F9FF_100%)] pt-5 pl-6']}>
         {
           stickers && (
             <div class="flex items-end gap-1.5 text-navy pr-6">

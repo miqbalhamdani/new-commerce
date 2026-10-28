@@ -12,7 +12,7 @@ const { cover, title, category } = post.data;
 
 {
   cover ? (
-    <Image src={cover} alt="" widths={widths} sizes={sizes} loading={eager ? 'eager' : 'lazy'} class:list={['block w-full object-cover', className]} />
+    <Image src={cover} alt="" widths={widths} sizes={sizes} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} class:list={['block w-full object-cover', className]} />
   ) : (
     <div class:list={['bg-hero flex flex-col justify-end items-start gap-2.5 p-[26px] text-white', className]}>
       <Badge variant="sticker" rotate={-4}>{category === 'Update Belli' ? 'Baru di Belli' : category}</Badge>

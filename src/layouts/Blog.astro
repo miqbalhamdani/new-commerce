@@ -6,18 +6,20 @@ import SiteHeader from '../components/SiteHeader.astro';
 import FinalCta from '../sections/FinalCta.astro';
 import Footer from '../sections/Footer.astro';
 
-type Props = { title: string; description: string };
+type Props = { title: string; description: string; image?: { src: string; alt: string }; published?: Date; schema?: object[] };
 
-const { title, description } = Astro.props;
+const { title, description, image, published, schema } = Astro.props;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} image={image} published={published} schema={schema}>
   <div class="bg-white overflow-x-clip">
     <div class="max-w-[1200px] mx-auto">
       <SiteHeader tone="light" current="/blog" />
     </div>
-    <slot />
-    <FinalCta />
+    <main id="konten" tabindex="-1" class="outline-none">
+      <slot />
+      <FinalCta />
+    </main>
     <Footer />
   </div>
 </Base>

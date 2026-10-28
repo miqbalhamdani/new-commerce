@@ -1,6 +1,6 @@
 ---
 // Port of "design/Belli Blog Detail.dc.html". The table of contents is the article's ## headings.
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import { render } from 'astro:content';
 import Blog from '../../layouts/Blog.astro';
 import Cover from '../../components/blog/Cover.astro';
@@ -20,11 +20,37 @@ const person = AUTHORS[author];
 // Up to three other articles, same category first, newest first.
 const others = posts.filter((p) => p !== post);
 const related = [...others.filter((p) => p.data.category === category), ...others.filter((p) => p.data.category !== category)].slice(0, 3);
-const url = new URL(`/blog/${post.id}`, Astro.site).href;
+const url = new URL(`/blog/${post.id}/`, Astro.site).href;
+// Share image: the cover cropped to 1200×630, else the site's og.jpg.
+const ogImage = cover && (await getImage({ src: cover, width: 1200, height: 630, fit: 'cover', format: 'jpg' }));
+const site = new URL('/', Astro.site).href;
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description: excerpt,
+    datePublished: date.toISOString(),
+    inLanguage: 'id-ID',
+    mainEntityOfPage: url,
+    image: new URL(ogImage ? ogImage.src : '/og.jpg', Astro.site).href,
+    author: { '@type': 'Person', name: author, ...(person?.linkedin && { url: person.linkedin }) },
+    publisher: { '@type': 'Organization', name: 'Belli', url: site, logo: { '@type': 'ImageObject', url: site + 'favicon.png' } },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Beranda', item: site },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: site + 'blog/' },
+      { '@type': 'ListItem', position: 3, name: title, item: url },
+    ],
+  },
+];
 const shareBtn = 'inline-flex items-center gap-[7px] text-sm font-semibold leading-none text-foreground no-underline bg-white border border-border rounded-[10px] px-3 py-2.5 min-h-10 cursor-pointer hover:border-primary hover:text-foreground';
 ---
 
-<Blog title={`${title} · Blog Belli`} description={excerpt}>
+<Blog title={`${title} · Belli`} description={excerpt} published={date} schema={schema} image={ogImage ? { src: ogImage.src, alt: title } : undefined}>
   <div data-progress class="fixed left-0 top-0 z-50 h-[3px] w-full origin-left scale-x-0 bg-primary" aria-hidden="true"></div>
 
   <div class="max-w-[880px] mx-auto px-6 pt-10 pb-12 flex flex-col items-center text-center gap-[22px]">
@@ -50,7 +76,7 @@ const shareBtn = 'inline-flex items-center gap-[7px] text-sm font-semibold leadi
     )
   }
 
-  <main class="max-w-[1248px] mx-auto px-6 pt-16 pb-14 flex flex-wrap justify-center gap-16 items-start">
+  <div class="max-w-[1248px] mx-auto px-6 pt-16 pb-14 flex flex-wrap justify-center gap-16 items-start">
     <aside class="flex-[0_0_240px] sticky top-8 flex flex-col gap-7 max-[900px]:hidden">
       {
         toc.length > 0 && (
@@ -123,7 +149,7 @@ const shareBtn = 'inline-flex items-center gap-[7px] text-sm font-semibold leadi
         </div>
       </div>
     </article>
-  </main>
+  </div>
 
   {
     related.length > 0 && (
