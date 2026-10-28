@@ -253,7 +253,8 @@ const tick = 'M5 12.5l4.5 4.5L19 7';
       sent.querySelector<HTMLAnchorElement>('[data-sent-wa]')!.href = 'https://wa.me/' + form.dataset.wa + '?text=' + encodeURIComponent(msg);
       form.hidden = true;
       sent.hidden = false;
-      sent.focus();
+      sent.focus({ preventScroll: true });
+      sent.scrollIntoView({ block: 'center' }); // iOS Safari doesn't scroll to a focused div
     } catch {
       error.hidden = false;
     } finally {
