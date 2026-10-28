@@ -1,0 +1,18 @@
+---
+// Fake browser window: three dots + address bar, content in the slot.
+type Props = { url: string; class?: string; maxUrl?: string };
+
+const { url, class: className, maxUrl = 'max-w-[342px]' } = Astro.props;
+---
+
+<div class:list={['bg-white overflow-hidden min-w-0', className]}>
+  <div class="flex items-center gap-2 px-3.5 py-2.5 border-b border-border bg-muted">
+    <span class="size-[9px] rounded-full bg-border"></span><span class="size-[9px] rounded-full bg-border"></span><span
+      class="size-[9px] rounded-full bg-border"></span>
+    <span
+      class:list={['ml-2 flex-1 truncate text-[11px] leading-none text-muted-foreground bg-white border border-border rounded-md px-2.5 py-[5px]', maxUrl]}
+      >{url}</span
+    >
+  </div>
+  <slot />
+</div>

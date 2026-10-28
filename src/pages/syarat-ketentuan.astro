@@ -1,0 +1,192 @@
+---
+// Terms of service, same layout as kebijakan-privasi.astro. Draft built from what the site already promises
+// (plans, Program Perintis, setup, stopping); needs legal review before launch.
+import Page from '../layouts/Page.astro';
+import { config, waDisplay } from '../config';
+
+const toc = [
+  'Tentang layanan',
+  'Akun dan tim',
+  'Paket dan pembayaran',
+  'Program Perintis',
+  'Setup dan pendampingan',
+  'Domain',
+  'Konten dan produkmu',
+  'Tokomu dan pembelimu',
+  'Belli API',
+  'Hak atas Belli',
+  'Berhenti berlangganan',
+  'Ketersediaan layanan',
+  'Perubahan, sengketa, dan kontak',
+];
+const showCek = config.showCekTags;
+const section = 'flex flex-col gap-3.5 scroll-mt-7';
+const h2 = 'm-0 flex items-baseline gap-3.5 text-[26px] font-semibold leading-[1.25] tracking-[-.015em]';
+const num = 'flex-none text-base font-semibold leading-none tracking-normal text-primary';
+const p = 'm-0 text-[17px] leading-[1.75] text-body-strong text-pretty';
+const ul = 'm-0 pl-[22px] list-disc flex flex-col gap-2.5 text-[17px] leading-[1.7] text-body-strong';
+const cek = 'text-[11px] font-semibold leading-none text-warn border border-dashed border-[#F79009] rounded-[5px] px-[5px] py-[3px] align-middle';
+---
+
+<Page title="Syarat dan Ketentuan · Belli" description="Aturan memakai Belli: paket, pembayaran, Program Perintis, kontenmu, dan cara berhenti berlangganan.">
+  <div class="flex flex-col gap-14">
+    <div class="max-w-[780px] flex flex-col gap-[18px]">
+      <span class="text-[13px] font-semibold leading-none tracking-[.1em] uppercase text-primary">Legal</span>
+      <h1 class="m-0 text-[clamp(38px,5.4vw,60px)] leading-[1.04] font-semibold tracking-[-.03em]">Syarat dan Ketentuan</h1>
+      <p class="m-0 text-[19px] leading-[1.65] text-body text-pretty">
+        Halaman ini menjelaskan aturan memakai Belli: apa yang kamu dapat, cara membayar, dan apa yang terjadi kalau kamu berhenti. Dengan mendaftar atau memakai Belli, kamu setuju dengan syarat ini.
+      </p>
+      <span class="text-[15px] leading-[1.4] text-muted-foreground">Terakhir diperbarui: 28 Oktober 2026</span>
+      {
+        showCek && (
+          <span class="self-start text-[13.5px] font-medium leading-normal text-warn bg-[#FFFAEB] border border-dashed border-[#F79009] rounded-[10px] px-3.5 py-2.5">
+            CEK: draf, perlu ditinjau ahli hukum sebelum tayang.
+          </span>
+        )
+      }
+    </div>
+
+    <div class="flex flex-wrap gap-14 items-start border-t border-border pt-12">
+      <div class="flex-[0_0_280px] max-md:flex-[1_1_100%] self-stretch">
+        <nav class="md:sticky md:top-7 flex flex-col gap-3" aria-labelledby="toc-title">
+          <h2 id="toc-title" class="m-0 text-[13px] font-semibold leading-none tracking-[.08em] uppercase text-muted-foreground">Daftar isi</h2>
+          <ol class="m-0 p-0 list-none flex flex-col gap-1">
+            {
+              toc.map((t, i) => (
+                <li class="flex gap-3 items-baseline py-[7px]">
+                  <span class="flex-none w-[22px] text-sm font-semibold leading-none text-primary">{String(i + 1).padStart(2, '0')}</span>
+                  <a href={`#s${i + 1}`} class="text-[15px] font-medium leading-[1.4] text-body-strong no-underline hover:text-primary">{t}</a>
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+      </div>
+
+      <div class="flex-[1_1_480px] min-w-0 max-w-[760px] flex flex-col gap-[52px]">
+        <section id="s1" class={section}>
+          <h2 class={h2}><span class={num}>01</span>{toc[0]}</h2>
+          <p class={p}>
+            Belli adalah layanan website katalog dan toko online untuk brand, beserta dashboard untuk mengelolanya. Belli dioperasikan oleh Iqbal Hamdani sebagai usaha perorangan, berdomisili di Bekasi, Jawa Barat. Dalam dokumen ini, “kami” berarti Belli, dan “kamu” berarti pemilik toko yang mendaftar beserta timnya.
+          </p>
+          <p class={p}>Cara kami memproses data pribadi dijelaskan terpisah di <a href="/kebijakan-privasi" class="text-primary underline underline-offset-2">Kebijakan Privasi</a>.</p>
+        </section>
+
+        <section id="s2" class={section}>
+          <h2 class={h2}><span class={num}>02</span>{toc[1]}</h2>
+          <ul class={ul}>
+            <li>
+              Kamu berusia minimal 18 tahun dan berwenang mewakili usahamu.{' '}
+              {showCek && <span class={cek}>CEK usia cakap hukum</span>}
+            </li>
+            <li>Isi data akun dengan benar dan jaga kata sandimu. Aktivitas di akunmu adalah tanggung jawabmu.</li>
+            <li>Kamu bisa mengundang tim dengan peran pemilik, admin, operasional, atau viewer. Jumlah akun staf mengikuti paketmu.</li>
+            <li>Pemilik toko yang mengatur siapa boleh melakukan apa.</li>
+          </ul>
+        </section>
+
+        <section id="s3" class={section}>
+          <h2 class={h2}><span class={num}>03</span>{toc[2]}</h2>
+          <ul class={ul}>
+            <li>Paket yang tersedia (Mulai, Katalog, dan Jualan) beserta harganya tercantum di halaman <a href="/#harga" class="text-primary underline underline-offset-2">Harga</a>.</li>
+            <li>Kamu bisa membayar bulanan atau tahunan. Pembayaran tahunan setara dengan 10 bulan.</li>
+            <li>Belli tidak memotong penjualanmu. Di paket Jualan, biaya pembayaran online dipotong oleh penyedia pembayaran di akunmu sendiri.</li>
+            <li>Untuk sekarang, langganan dibayar lewat transfer bank sesuai invoice yang kami kirim. Kalau metode lain sudah tersedia, kami cantumkan di sini.</li>
+            <li>Langganan tidak diperpanjang dengan potong otomatis. Kalau masa bayar habis dan kamu tidak memperpanjang, langganan berhenti.</li>
+            <li>Kalau harga berubah, kami beri tahu lewat email atau dashboard paling lambat 30 hari sebelum harga baru berlaku untukmu. Harga Program Perintis yang terkunci tidak ikut berubah.</li>
+          </ul>
+        </section>
+
+        <section id="s4" class={section}>
+          <h2 class={h2}><span class={num}>04</span>{toc[3]}</h2>
+          <p class={p}>
+            10 brand pertama yang memenuhi syarat mendapat 3 bulan gratis untuk paket apa pun. Setelah 3 bulan, kamu bisa lanjut bulanan atau tahunan dengan harga yang terkunci selama kamu berlangganan, atau berhenti. Syaratnya:
+          </p>
+          <ul class={ul}>
+            <li>Produk diisi dalam 14 hari.</li>
+            <li>Ikut 2 sesi feedback, masing-masing 30 menit.</li>
+            <li>Tokomu boleh kami jadikan studi kasus.</li>
+            <li>Ada link “dibuat dengan Belli” di footer website-mu.</li>
+          </ul>
+        </section>
+
+        <section id="s5" class={section}>
+          <h2 class={h2}><span class={num}>05</span>{toc[4]}</h2>
+          <p class={p}>
+            Di paket Katalog dan Jualan yang dibayar tahunan, setup gratis: kami isikan 50 produk pertama, mengatur toko, melatih timmu 1 jam, dan mendampingi 30 hari setelah toko tayang. Di paket Mulai, toko diatur sendiri lewat dashboard.
+          </p>
+          <p class={p}>Belum termasuk: domain (dibayar sesuai harga aslinya), foto produk, dan penulisan konten.</p>
+        </section>
+
+        <section id="s6" class={section}>
+          <h2 class={h2}><span class={num}>06</span>{toc[5]}</h2>
+          <p class={p}>
+            Domain sendiri tersedia mulai paket Katalog. Kalau kamu belum punya, kami bisa mendaftarkannya atas namamu, dengan biaya sesuai harga pendaftar domain. Domain tetap milikmu dan bisa kamu pindahkan ke mana saja.
+          </p>
+        </section>
+
+        <section id="s7" class={section}>
+          <h2 class={h2}><span class={num}>07</span>{toc[6]}</h2>
+          <ul class={ul}>
+            <li>Produk, foto, harga, dan artikel yang kamu masukkan tetap milikmu. Kamu memberi kami izin menampilkannya di tokomu.</li>
+            <li>Pastikan kamu berhak memakai semua konten itu, dan produk yang kamu jual legal di Indonesia.</li>
+            <li>Belli tidak boleh dipakai untuk menjual barang terlarang, menipu pembeli, atau melanggar hak orang lain. Toko yang melakukannya bisa kami nonaktifkan.</li>
+          </ul>
+        </section>
+
+        <section id="s8" class={section}>
+          <h2 class={h2}><span class={num}>08</span>{toc[7]}</h2>
+          <p class={p}>
+            Belli menyediakan website dan dashboard, tetapi bukan pihak dalam jual beli antara tokomu dan pembelimu. Produk, harga, pengiriman, pengembalian barang, dan keluhan pembeli adalah tanggung jawabmu, termasuk mengikuti aturan perlindungan konsumen dan memberi tahu pembeli bagaimana kamu memakai data mereka.
+          </p>
+        </section>
+
+        <section id="s9" class={section}>
+          <h2 class={h2}><span class={num}>09</span>{toc[8]}</h2>
+          <ul class={ul}>
+            <li>Kalau kamu atau developermu memakai Belli API, jaga kerahasiaan API key. Semua permintaan dengan key itu dianggap berasal dari tokomu.</li>
+            <li>Kami bisa membatasi pemakaian yang membebani sistem atau mengganggu toko lain.</li>
+          </ul>
+        </section>
+
+        <section id="s10" class={section}>
+          <h2 class={h2}><span class={num}>10</span>{toc[9]}</h2>
+          <p class={p}>
+            Nama dan logo Belli, dashboard, serta kode di baliknya milik kami. Kamu boleh memakai layanannya selama berlangganan, tetapi tidak boleh menyalin, menjual ulang, atau membongkarnya.
+          </p>
+        </section>
+
+        <section id="s11" class={section}>
+          <h2 class={h2}><span class={num}>11</span>{toc[10]}</h2>
+          <p class={p}>
+            Kamu bisa berhenti kapan saja. Pembayaran yang sudah masuk tidak dikembalikan, tetapi tokomu tetap tayang sampai akhir masa yang sudah dibayar. Data pesanan bisa kamu unduh kapan saja dari dashboard, dan data produk kami kirim dalam bentuk spreadsheet kalau kamu minta.
+          </p>
+          <p class={p}>
+            Datanya kami simpan 30 hari setelah langganan berakhir. Kalau kamu kembali dalam 30 hari, toko langsung tayang lagi seperti semula. Setelah itu data dihapus permanen.
+          </p>
+        </section>
+
+        <section id="s12" class={section}>
+          <h2 class={h2}><span class={num}>12</span>{toc[11]}</h2>
+          <p class={p}>
+            Kami menjaga layanan tetap berjalan, termasuk hosting, HTTPS, dan pembaruan sistem. Sesekali layanan bisa terganggu, misalnya karena perawatan atau gangguan dari penyedia lain. Kami tidak bertanggung jawab atas kerugian tidak langsung, seperti kehilangan penjualan, akibat gangguan tersebut.{' '}
+            {showCek && <span class={cek}>CEK batas tanggung jawab</span>}
+          </p>
+        </section>
+
+        <section id="s13" class={section}>
+          <h2 class={h2}><span class={num}>13</span>{toc[12]}</h2>
+          <p class={p}>
+            Kalau syarat ini berubah, kami beri tahu lewat email atau dashboard paling lambat 30 hari sebelum perubahan berlaku. Syarat ini tunduk pada hukum Republik Indonesia.
+          </p>
+          <p class={p}>
+            Kalau ada perselisihan, kita selesaikan dulu secara musyawarah. Kalau dalam 30 hari belum selesai, perselisihan diselesaikan di Pengadilan Negeri Bekasi.
+          </p>
+          <p class={p}>
+            Pertanyaan bisa dikirim ke {config.email || '[ISI: email]'} atau WhatsApp {waDisplay}, atau lewat halaman <a href="/kontak" class="text-primary underline underline-offset-2">Kontak</a>.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Page>

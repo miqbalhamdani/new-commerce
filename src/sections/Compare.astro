@@ -1,0 +1,87 @@
+---
+import Badge from '../components/ui/Badge.astro';
+import Card from '../components/ui/Card.astro';
+import { config } from '../config';
+
+const OTHERS = ['Marketplace saja', 'Agency + WordPress', 'Shopify'];
+// [label, marketplace, agency, shopify, belli]
+const ROWS = [
+  ['Biaya awal', 'Gratis', 'Rp5-50 juta', 'Gratis', 'Gratis'],
+  ['Biaya bulanan', 'Potongan per penjualan', 'Perawatan + hosting', '±Rp450-650rb + potongan pembayaran pihak ketiga', 'Mulai Rp49rb'],
+  ['Ada yang menemani', 'Tidak', 'Sampai jadi', 'Tidak', '30 hari setelah tayang (Katalog dan Jualan tahunan)'],
+  ['Brand punya rumah sendiri', 'Tidak', 'Ya', 'Ya', 'Ya'],
+  ['Ganti harga sendiri', 'Ya', 'Sering lewat developer', 'Ya', 'Ya'],
+  ['Bahasa dan support', 'Indonesia', 'Tergantung agency', 'Inggris', 'Indonesia, lewat WhatsApp'],
+];
+const yes = 'M5 12.5l4.5 4.5L19 7';
+const no = 'M6 6l12 12M18 6L6 18';
+---
+
+<section class="bg-band px-6 py-24">
+  <div class="max-w-[1200px] mx-auto flex flex-col gap-11">
+  <h2 class="h-section text-center">Dibanding pilihan lain</h2>
+  <div data-cmp="table" class="overflow-x-auto border border-border rounded-3xl bg-white shadow-[0_30px_60px_-44px_rgba(10,19,48,.4)] max-[640px]:hidden">
+    <table class="w-full min-w-[760px] table-fixed border-separate border-spacing-0 text-left">
+      <colgroup><col class="w-[21%]" /><col /><col /><col /><col class="w-[22%]" /></colgroup>
+      <thead>
+        <tr>
+          <th class="border-b border-border"></th>
+          {OTHERS.map((name) => <th class="px-[18px] py-[22px] text-[15px] font-semibold leading-[1.3] text-body border-b border-border">{name}</th>)}
+          <th class="px-[18px] py-[22px] text-[19px] font-bold leading-[1.2] text-primary-hover bg-accent border-t-[3px] border-t-primary border-b border-b-border">Belli</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          ROWS.map((r, i) => {
+            const line = i < ROWS.length - 1 && 'border-b border-border-soft';
+            return (
+              <tr>
+                <th scope="row" class:list={['px-[22px] py-[18px] text-[15px] font-semibold leading-[1.35]', line]}>{r[0]}</th>
+                {r.slice(1, 4).map((v, j) => (
+                  <td class:list={['p-[18px] text-[14.5px] leading-[1.4] text-body text-pretty', line]}>
+                    {v === 'Ya' ? (
+                      <span class="inline-flex items-center gap-[7px] font-semibold text-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d={yes} /></svg>Ya</span>
+                    ) : v === 'Tidak' ? (
+                      <span class="inline-flex items-center gap-[7px] text-muted-foreground"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d={no} /></svg>Tidak</span>
+                    ) : (
+                      v
+                    )}
+                    {config.showCekTags && i === 1 && j === 2 && <Badge variant="cek" class="ml-1.5">CEK</Badge>}
+                  </td>
+                ))}
+                <td class:list={['p-[18px] text-[14.5px] font-semibold leading-[1.4] bg-accent text-pretty', line]}>
+                  {r[4] === 'Ya' ? (
+                    <span class="inline-flex items-center gap-[7px] text-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d={yes} /></svg>Ya</span>
+                  ) : (
+                    r[4]
+                  )}
+                </td>
+              </tr>
+            );
+          })
+        }
+      </tbody>
+    </table>
+  </div>
+  <div data-cmp="cards" class="hidden max-[640px]:flex flex-col gap-3">
+    {
+      ROWS.map((r) => (
+        <Card class="rounded-2xl px-[18px] py-4 flex flex-col gap-2.5 text-sm leading-[1.4]">
+          <span class="text-base font-semibold leading-[1.3]">{r[0]}</span>
+          <div class="flex justify-between gap-3 bg-accent rounded-[10px] px-3 py-2.5">
+            <span class="font-semibold text-primary-hover">Belli</span>
+            <span class="font-medium text-right">{r[4]}</span>
+          </div>
+          {OTHERS.map((name, j) => (
+            <div class="flex justify-between gap-3 px-3">
+              <span class="text-muted-foreground flex-none">{name}</span>
+              <span class="text-body text-right">{r[j + 1]}</span>
+            </div>
+          ))}
+        </Card>
+      ))
+    }
+  </div>
+  <p class="m-0 text-center text-[17px] leading-normal text-body"><strong class="font-semibold text-foreground">Marketplace tetap jalan.</strong> Belli jadi rumah brand-mu.</p>
+  </div>
+</section>

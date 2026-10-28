@@ -1,0 +1,42 @@
+---
+// Port of "Belli Landing Page v8.dc.html" (design/). One section per design comment block.
+import Base from '../layouts/Base.astro';
+import Hero from '../sections/Hero.astro';
+import Marquee from '../sections/Marquee.astro';
+import Problem from '../sections/Problem.astro';
+import Features from '../sections/Features.astro';
+import Examples from '../sections/Examples.astro';
+import About from '../sections/About.astro';
+import Dashboard from '../sections/Dashboard.astro';
+import CaraMulai from '../sections/CaraMulai.astro';
+import Pricing from '../sections/Pricing.astro';
+import Compare from '../sections/Compare.astro';
+import Fit from '../sections/Fit.astro';
+import Faq from '../sections/Faq.astro';
+import DevBand from '../sections/DevBand.astro';
+import FinalCta from '../sections/FinalCta.astro';
+import Footer from '../sections/Footer.astro';
+import { config } from '../config';
+---
+
+<Base>
+  <div class="bg-white overflow-x-clip">
+    <Hero />
+    <Marquee />
+    <Problem />
+    <Features />
+    <Examples />
+    <About />
+    <Dashboard />
+    {config.showCaraMulai && <CaraMulai />}
+    <Pricing />
+    <Compare />
+    <Fit />
+    <div class="bg-band">
+      <Faq />
+      <DevBand />
+    </div>
+    <FinalCta />
+    <Footer />
+  </div>
+</Base>

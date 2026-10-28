@@ -1,0 +1,32 @@
+---
+// Sticky notes on dotted paper (v8). Each note has its own colour, tilt and tape angle; hover straightens it.
+const pains = [
+  { label: 'Developer', quote: 'Ganti harga saja harus chat developer, atau WordPress-nya error.', bg: 'bg-[#FFF4C2]', rot: -3, tape: 4 },
+  { label: 'Google', quote: 'Dicari di Google, yang muncul malah reseller.', bg: 'bg-[#FFE1E9]', rot: 2, tape: -3 },
+  { label: 'Admin', quote: 'Admin capek jawab ‘ready kak?’ satu per satu.', bg: 'bg-white', rot: -1.5, tape: 2 },
+  { label: 'Agency', quote: 'Bikin website puluhan juta di agency, lalu ditinggal.', bg: 'bg-accent-line', rot: 3, tape: -5 },
+];
+---
+
+<section class="bg-dots [--dots-to:var(--color-muted)] px-6 pt-24 pb-[104px]">
+  <div class="max-w-[1200px] mx-auto flex flex-col items-center gap-14">
+    <h2 class="h-section text-center">Pernah begini?</h2>
+    <div class="w-full grid grid-cols-4 gap-7 max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:gap-9 max-sm:px-2">
+      {
+        pains.map((p) => (
+          <div
+            class:list={[
+              'relative px-6 pt-9 pb-7 min-h-[220px] max-sm:min-h-0 flex flex-col gap-3.5 rotate-(--rot) transition-transform duration-250 hover:rotate-0 hover:-translate-y-1 shadow-[0_18px_30px_-18px_rgba(10,19,48,.45),0_2px_0_rgba(10,19,48,.06)]',
+              p.bg,
+            ]}
+            style={`--rot:${p.rot}deg`}
+          >
+            <span class="absolute -top-3 left-1/2 w-[88px] h-6 -ml-11 bg-white/60 shadow-[0_1px_2px_rgba(10,19,48,.12)] rotate-(--tape)" style={`--tape:${p.tape}deg`} />
+            <span class="font-hand text-2xl font-semibold leading-none text-primary-hover">{p.label}</span>
+            <p class="m-0 text-[19px] leading-[1.45] font-medium text-pretty">“{p.quote}”</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

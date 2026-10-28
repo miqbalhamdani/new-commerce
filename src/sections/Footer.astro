@@ -1,0 +1,27 @@
+---
+import { config, waDisplay, waHref } from '../config';
+
+const links = [
+  [waHref, `WhatsApp ${waDisplay}`],
+  [`mailto:${config.email}`, `Email ${config.email || '[ISI]'}`],
+  ['/blog', 'Blog'],
+  ['/kontak', 'Kontak'],
+  ['https://jadigampang.com', 'Website dibuat oleh JadiGampang'],
+  ['/kebijakan-privasi', 'Kebijakan privasi'],
+  ['/syarat-ketentuan', 'Syarat dan ketentuan'],
+];
+---
+
+<footer class="max-w-[1248px] mx-auto px-6 pt-14 overflow-hidden">
+  <div class="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 pb-7 border-b border-border">
+    <span class="flex items-center gap-2.5">
+      <span class="size-[30px] rounded-[9px] bg-primary grid place-items-center text-base font-bold leading-none text-white">B</span>
+      <span class="text-lg font-semibold leading-none">Belli</span>
+    </span>
+    <div class="flex flex-wrap gap-x-6 gap-y-2.5 text-[15px] leading-[1.4]">
+      {links.map(([href, label]) => <a href={href} class="text-foreground no-underline hover:text-primary">{label}</a>)}
+    </div>
+  </div>
+  <div class="py-5 text-[13px] leading-[1.4] text-muted-foreground">© 2026 Belli</div>
+  <div class="text-[clamp(84px,19vw,270px)] font-bold leading-[.78] tracking-[-.05em] text-canvas text-center select-none -mb-[.08em]">Belli</div>
+</footer>

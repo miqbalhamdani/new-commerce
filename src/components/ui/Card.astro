@@ -1,0 +1,28 @@
+---
+// shadcn-style card. Radius and padding come from the caller; `lift` adds the design's hover lift.
+type Props = {
+  tone?: keyof typeof tones;
+  lift?: boolean;
+  class?: string;
+  [key: `data-${string}`]: unknown;
+};
+
+const tones = {
+  default: 'bg-white border border-border',
+  accent: 'bg-accent border border-primary', // recommended / highlighted
+  soon: 'bg-muted border border-dashed border-border-strong', // not available yet
+};
+
+const { tone = 'default', lift = false, class: className, ...rest } = Astro.props;
+---
+
+<div
+  class:list={[
+    tones[tone],
+    lift && 'transition-[transform,box-shadow] duration-250 hover:-translate-y-[3px] hover:shadow-[0_24px_48px_-32px_rgba(10,19,48,.35)]',
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</div>

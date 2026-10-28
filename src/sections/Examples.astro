@@ -1,0 +1,99 @@
+---
+// v8: one browser frame crossfading between sites, a side caption, and 6 tabs with a 5 s progress bar.
+// Only ACL Cosm and Sleep Project are live. The other four show "Segera hadir": give one a `host` and `img`
+// (public/contoh/) when its demo exists.
+import Badge from '../components/ui/Badge.astro';
+import { config } from '../config';
+
+const sites = [
+  { cat: 'B2B', title: 'Website pabrik maklon kosmetik di Bekasi, katalog 3 brand', short: 'Maklon kosmetik', host: 'aclcosm.jadigampang.com', img: '/contoh/acl.webp', alt: 'Screenshot website ACL Cosm' },
+  { cat: 'Brand konsumen', title: 'Website brand bedding, sleepwear, dan handuk di Jakarta', short: 'Bedding & sleepwear', host: 'sleepprojectindonesia.jadigampang.com', img: '/contoh/sleep.webp', alt: 'Screenshot website Sleep Project Indonesia' },
+  { cat: 'Kuliner', title: 'Website brand sambal dengan menu dan pesan lewat WhatsApp', short: 'Brand sambal' },
+  { cat: 'Kerajinan', title: 'Katalog batik tulis Lasem untuk hotel dan toko', short: 'Batik tulis' },
+  { cat: 'Kecantikan', title: 'Toko skincare lokal dengan varian dan paket bundling', short: 'Skincare lokal' },
+  { cat: 'Kopi', title: 'Katalog biji kopi dan alat seduh untuk kafe', short: 'Biji kopi' },
+];
+const { autoplay } = config;
+const fade = 'transition-opacity duration-500 data-[active=false]:opacity-0 data-[active=false]:pointer-events-none';
+---
+
+<section id="contoh" class="bg-white px-6 py-24 scroll-mt-3">
+  <div data-slider data-autoplay={String(autoplay)} data-interval="5000" class="max-w-[1200px] mx-auto flex flex-col gap-10">
+    <div class="flex flex-col gap-3">
+      <h2 class="h-section">Contoh website</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] gap-x-11 gap-y-8 items-center">
+      <div class="bg-white border border-border rounded-[20px] overflow-hidden shadow-[0_40px_70px_-40px_rgba(10,19,48,.45)]">
+        <div class="h-11 bg-canvas border-b border-border flex items-center gap-3.5 px-4">
+          <div class="flex gap-1.5 flex-none"><span class="size-2.5 rounded-full bg-border-strong"></span><span class="size-2.5 rounded-full bg-border-strong"></span><span class="size-2.5 rounded-full bg-border-strong"></span></div>
+          <div class="flex-1 min-w-0 max-w-[360px] flex items-center gap-[7px] bg-white border border-border rounded-lg px-3 py-1.5 font-mono text-[12.5px] leading-none text-body">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#067647" stroke-width="2.4" class="flex-none"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+            <span class="grid min-w-0">{sites.map((s, i) => <span data-slide={i} data-active={String(i === 0)} class:list={['[grid-area:1/1] truncate', fade]}>{s.host ?? 'segera hadir'}</span>)}</span>
+          </div>
+        </div>
+        <div class="relative aspect-[16/10] bg-muted">
+          {
+            sites.map((s, i) => (
+              <div data-slide={i} data-active={String(i === 0)} class:list={['absolute inset-0', fade]}>
+                {s.img ? (
+                  <img src={s.img} alt={s.alt} width="1440" height="900" loading="lazy" decoding="async" class="block size-full object-cover object-top" />
+                ) : (
+                  <div class="size-full bg-hero flex flex-col items-center justify-center gap-4 p-6 text-center text-white">
+                    <Badge variant="sticker" rotate={-4}>Segera hadir</Badge>
+                    <span class="text-[clamp(22px,2.6vw,32px)] font-semibold leading-[1.15] tracking-[-.02em] text-pretty">Contoh website {s.short.toLowerCase()}</span>
+                  </div>
+                )}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="grid">
+        {
+          sites.map((s, i) => (
+            <div data-slide={i} data-active={String(i === 0)} class:list={['[grid-area:1/1] flex flex-col gap-[18px] items-start', fade]}>
+              <span class="font-mono text-[13.5px] leading-none tracking-[.14em] uppercase text-body">{s.cat}</span>
+              <h3 class="m-0 text-[clamp(24px,2.4vw,30px)] leading-[1.2] font-semibold tracking-[-.02em] text-pretty">{s.title}</h3>
+              {s.host ? (
+                <>
+                  <span class="font-mono text-sm leading-none text-muted-foreground break-all">{s.host}</span>
+                  <a
+                    href={'https://' + s.host}
+                    target="_blank"
+                    rel="noopener"
+                    class="inline-flex items-center gap-[9px] bg-primary text-white hover:bg-primary-hover hover:text-white text-base font-semibold leading-none px-[22px] py-[15px] rounded-full no-underline shadow-[0_8px_20px_-10px_rgba(47,107,255,.8)] transition-colors duration-200"
+                  >
+                    Buka demo live
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg>
+                  </a>
+                </>
+              ) : (
+                <span class="inline-flex items-center gap-2 text-sm font-semibold leading-none text-warn bg-warn-bg rounded-full px-3.5 py-2.5">Segera hadir</span>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="grid grid-cols-6 max-lg:grid-cols-3 gap-x-4 gap-y-6">
+      {
+        sites.map((s, i) => (
+          <button data-tab={i} data-active={String(i === 0)} aria-pressed={String(i === 0)} class="group/tab border-0 bg-transparent cursor-pointer text-left p-0 flex flex-col gap-2.5 min-h-11">
+            <div data-progress class="h-[3px] rounded-full bg-border overflow-hidden">
+              {autoplay && <div class="h-full w-0 bg-primary rounded-full animate-progress [animation-duration:5s] group-data-[active=false]/tab:hidden motion-reduce:hidden" />}
+            </div>
+            <span class="font-mono text-[11.5px] leading-none tracking-[.12em] uppercase text-muted-foreground group-data-[active=true]/tab:text-primary">{s.cat}</span>
+            <span class="text-[14.5px] font-semibold leading-[1.35] text-muted-foreground group-data-[active=true]/tab:text-foreground transition-colors duration-200">{s.short}</span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/slider';
+</script>

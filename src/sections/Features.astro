@@ -1,0 +1,114 @@
+---
+// v8: a store mock on the left with numbered badges that point to the numbered list on the right.
+// Photos are from Unsplash (free license): banner Sarah Brown, sprei Bree Anne, piyama otabek xatipov,
+// handuk Irham Setyaki, bed cover Lotus Design N Print.
+import { Image } from 'astro:assets';
+import banner from '../assets/fitur/banner.jpg';
+import sprei from '../assets/fitur/sprei.jpg';
+import piyama from '../assets/fitur/piyama.jpg';
+import handuk from '../assets/fitur/handuk.jpg';
+import bedcover from '../assets/fitur/bedcover.jpg';
+
+const products = [
+  { name: 'Sprei Tencel Set', meta: '4 ukuran · 4 warna', img: sprei },
+  { name: 'Piyama Katun Set', meta: '3 ukuran · 2 warna', img: piyama },
+  { name: 'Handuk Bambu', meta: '2 ukuran · 5 warna', img: handuk },
+  { name: 'Bed Cover Linen', meta: '3 ukuran · 3 warna', img: bedcover },
+];
+const features = [
+  ['Katalog lengkap dengan varian', 'Pembeli saring per kategori atau merek, lalu pilih ukuran dan warna.'],
+  ['Tombol WhatsApp di tiap produk', 'Nama produk dan varian langsung terisi di chat.'],
+  ['Siap Google, rapi saat dibagikan di WA', 'Tulis blog dengan produk di dalam artikel, dan atur jadwal terbitnya. Blog dan domain sendiri tersedia mulai paket Katalog.'],
+];
+const included = [
+  'Hosting dan server terkelola',
+  'HTTPS aktif',
+  'Update sistem otomatis',
+  'Foto dikecilkan otomatis agar website tetap cepat',
+  'Akses tim sesuai peran (pemilik, admin, operasional, viewer)',
+];
+const num = 'size-6 rounded-full bg-primary text-white text-xs font-semibold leading-6 text-center shadow-[0_0_0_3px_#fff]';
+const pill = 'text-[12.5px] font-medium leading-none text-body border border-border rounded-full px-[11px] py-1.5';
+---
+
+<section id="fitur" class="bg-band [--band-from:var(--color-muted)] px-6 py-24 scroll-mt-3">
+  <div class="max-w-[1200px] mx-auto flex flex-col gap-14">
+    <h2 class="h-section">Yang kamu dapat</h2>
+    <div class="grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-x-16 gap-y-12 items-center">
+      <div class="relative pb-7" aria-hidden="true">
+        <div class="bg-white border border-border rounded-[18px] shadow-[0_30px_60px_-30px_rgba(10,19,48,.35)]">
+          <div class="h-11 bg-canvas rounded-t-[18px] border-b border-border flex items-center gap-3.5 px-4">
+            <div class="flex gap-1.5"><span class="size-2.5 rounded-full bg-border-strong"></span><span class="size-2.5 rounded-full bg-border-strong"></span><span class="size-2.5 rounded-full bg-border-strong"></span></div>
+            <div class="relative inline-flex items-center gap-1.5 bg-white border border-border rounded-lg px-3 py-1.5 text-[12.5px] font-medium leading-none text-body">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#067647" stroke-width="2.4"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>sleepproject.id
+              <span class:list={[num, 'absolute -top-3 -right-3.5']}>3</span>
+            </div>
+          </div>
+          <div class="px-5 py-4 flex items-center gap-[22px] border-b border-border-soft text-[13px] font-medium leading-none text-body">
+            <span class="text-[17px] font-bold tracking-[-.01em] text-foreground">Sleep Project</span>
+            <span class="ml-auto max-sm:hidden">Sprei</span><span class="max-sm:hidden">Piyama</span><span class="max-sm:hidden">Handuk</span>
+            <span class="relative font-semibold text-foreground max-sm:ml-auto">Journal<span class:list={[num, 'absolute -top-4 -right-5']}>3</span></span>
+          </div>
+          <div class="px-5 pt-4 pb-[22px] flex flex-col gap-4">
+            <div class="relative rounded-[14px] overflow-hidden">
+              <Image src={banner} alt="" widths={[700, 1400]} sizes="(min-width: 1024px) 640px, 100vw" class="block w-full h-[190px] object-cover" />
+              <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,19,48,.6)_0%,rgba(10,19,48,0)_60%)]"></div>
+              <span class="absolute left-[22px] top-[26px] text-[26px] font-semibold leading-[1.1] tracking-[-.015em] text-white">Koleksi Tencel</span>
+            </div>
+            <div class="flex flex-wrap gap-2 items-center">
+              <span class="text-[12.5px] font-semibold leading-none text-white bg-foreground rounded-full px-3 py-[7px]">Semua</span>
+              <span class={pill}>Sprei</span><span class={pill}>Piyama</span><span class={pill}>Handuk</span>
+              <span class:list={[num, 'ml-1']}>1</span>
+            </div>
+            <div class="grid grid-cols-4 max-sm:grid-cols-2 gap-3">
+              {
+                products.map((p) => (
+                  <div class="flex flex-col gap-[7px]">
+                    <Image src={p.img} alt="" width={300} height={300} class="block w-full aspect-square object-cover rounded-[10px]" />
+                    <div class="flex flex-col gap-0.5">
+                      <span class="text-[13px] font-semibold leading-[1.25]">{p.name}</span>
+                      <span class="text-[11.5px] leading-[1.25] text-muted-foreground">{p.meta}</span>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+        <div class="absolute right-7 bottom-1.5 inline-flex items-center gap-2 bg-navy text-white text-sm font-semibold leading-none px-4 py-[13px] rounded-xl shadow-[0_16px_30px_-14px_rgba(10,19,48,.7)]">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12z"></path></svg>Pesan via WhatsApp
+          <span class:list={[num, 'absolute -top-3 -right-3']}>2</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-7">
+        <ol class="list-none m-0 p-0 flex flex-col">
+          {
+            features.map(([title, sub], i) => (
+              <li class="grid grid-cols-[32px_1fr] gap-4 py-5 border-t border-border">
+                <span class="size-7 rounded-full bg-primary text-white text-[13px] font-semibold leading-7 text-center">{i + 1}</span>
+                <div class="flex flex-col gap-1.5">
+                  <h3 class="m-0 text-xl leading-[1.3] font-semibold text-pretty">{title}</h3>
+                  <p class="m-0 text-[15.5px] leading-normal text-body text-pretty">{sub}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+        <div class="bg-muted border border-border rounded-[18px] px-[22px] py-5 flex flex-col gap-3">
+          <span class="text-[15px] font-semibold leading-none">Sudah termasuk:</span>
+          <ul class="list-none m-0 p-0 flex flex-col gap-3">
+            {
+              included.map((x) => (
+                <li class="flex items-start gap-2.5 text-[15px] leading-[1.4] text-body">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="flex-none mt-0.5 text-success"><path d="M5 12.5l4.5 4.5L19 7" /></svg>
+                  {x}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

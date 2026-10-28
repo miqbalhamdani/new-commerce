@@ -1,0 +1,28 @@
+---
+import Badge from '../components/ui/Badge.astro';
+import Button from '../components/ui/Button.astro';
+import { config, slotsText } from '../config';
+---
+
+<section class="px-3 pt-6">
+  <div class="relative rounded-[28px] overflow-hidden bg-cta text-white">
+    <div class="max-w-[848px] mx-auto px-6 py-[clamp(64px,8vw,112px)] flex flex-col items-center text-center gap-[22px]">
+      {config.showStickers && <Badge variant="sticker" rotate={-5}>Program Perintis</Badge>}
+      <h2 class="m-0 text-[clamp(32px,4.4vw,56px)] leading-[1.08] font-semibold tracking-[-.025em] text-pretty">Brand-mu layak punya rumah sendiri.</h2>
+      <p class="m-0 text-[clamp(16px,1.4vw,19px)] leading-[1.55] text-periwinkle max-w-[560px] text-pretty">Gratis 3 bulan untuk 10 brand pertama. Sisa {slotsText} slot.</p>
+      <div class="relative flex flex-wrap justify-center gap-3 mt-2">
+        <Button href="/kontak?topik=program-perintis" size="xl" lift>
+          Coba gratis 3 bulan<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </Button>
+        {
+          config.showStickers && (
+            <div class="absolute -left-[200px] -top-2 flex items-start gap-1 text-sun -rotate-6 max-[560px]:hidden">
+              <span class="font-hand text-2xl font-semibold leading-none whitespace-nowrap">form singkat, 2 menit</span>
+              <svg width="48" height="36" viewBox="0 0 48 36" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4c10 14 24 20 40 20" /><path d="M36 16l8 8-10 6" /></svg>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,240 @@
+---
+import Badge from '../components/ui/Badge.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import { config, jualanLive, slotsText } from '../config';
+
+const TIERS = [
+  {
+    key: 'mulai', name: 'Mulai', m: 'Rp49rb', y: 'Rp490rb', yPerMo: 'Rp41rb',
+    untuk: 'Untuk mulai punya website katalog.', alamat: 'namatoko.belli.id', setup: 'atur sendiri lewat dashboard.',
+    listLabel: 'Yang kamu dapat',
+    items: ['Katalog, varian, dan foto produk', 'Tombol pesan WhatsApp di tiap produk', 'Label “dibuat dengan Belli” di footer', '1 akun staf'],
+  },
+  {
+    key: 'katalog', name: 'Katalog', rec: true, m: 'Rp99rb', y: 'Rp990rb', yPerMo: 'Rp83rb',
+    untuk: 'Untuk brand yang jualan lewat WA dan DM.', alamat: 'Domain sendiri', setup: 'gratis kalau bayar tahunan.',
+    listLabel: 'Semua di Mulai, plus',
+    items: ['Blog atau journal', 'Label “dibuat dengan Belli” bisa dihapus', '2 akun staf'],
+  },
+  {
+    key: 'jualan', name: 'Jualan', m: 'Rp199rb', y: 'Rp1,99jt', yPerMo: 'Rp166rb',
+    untuk: 'Untuk terima pesanan dan pembayaran di website.', alamat: 'Domain sendiri', setup: 'gratis kalau bayar tahunan.',
+    listLabel: 'Semua di Katalog, plus',
+    items: ['Keranjang dan checkout', 'Bayar online dan transfer bank', 'Ongkir dihitung otomatis', 'Akun pembeli dan email pesanan', 'Catat pesanan dari WhatsApp', 'Dashboard penjualan dan ekspor', '5 akun staf'],
+  },
+];
+const tiers = TIERS.filter((t) => t.key !== 'mulai' || config.showMulaiTier).map((t) => {
+  const soon = t.key === 'jualan' && !jualanLive;
+  return { ...t, soon, items: soon ? t.items.slice(0, 4) : t.items, more: soon ? t.items.length - 4 : 0 };
+});
+// v8 comparison table rows: true = check, false = not included, string = text. Values follow TIERS order.
+const ROWS: [string, ...(boolean | string)[]][] = [
+  ['Katalog, varian, dan foto produk', true, true, true],
+  ['Tombol pesan WhatsApp di tiap produk', true, true, true],
+  ['Alamat', 'namatoko.belli.id', 'Domain sendiri', 'Domain sendiri'],
+  ['Blog atau journal', false, true, true],
+  ['Label “dibuat dengan Belli” di footer', 'Tampil', 'Bisa dihapus', 'Bisa dihapus'],
+  ['Akun staf', '1', '2', '5'],
+  ['Keranjang dan checkout', false, false, true],
+  ['Bayar online dan transfer bank', false, false, true],
+  ['Ongkir dihitung otomatis', false, false, true],
+  ['Akun pembeli dan email pesanan', false, false, true],
+  ['Catat pesanan dari WhatsApp', false, false, true],
+  ['Dashboard penjualan dan ekspor', false, false, true],
+  ['Toko diisikan dan diatur', 'Atur sendiri', 'Gratis kalau bayar tahunan', 'Gratis kalau bayar tahunan'],
+];
+const cols = TIERS.map((t, i) => (tiers.some((x) => x.key === t.key) ? i : -1)).filter((i) => i >= 0);
+const rows = ROWS.map(([label, ...v]) => ({ label, cells: cols.map((i) => v[i]) }));
+// Sign-up goes through the Kontak form, with the topic and plan ticked in advance.
+const daftar = (plan: string) => `/kontak?topik=daftar-paket&paket=${plan.toLowerCase()}`;
+const terms = ['Produk diisi dalam 14 hari', '2 sesi feedback 30 menit', 'Boleh dijadikan studi kasus', 'Ada link “dibuat dengan Belli” di footer'];
+const check = 'M5 12.5l4.5 4.5L19 7';
+const yearly = config.billing === 'tahunan';
+const toggle =
+  'border-0 cursor-pointer text-sm font-semibold leading-none px-[18px] py-2.5 min-h-11 rounded-full text-body whitespace-nowrap transition-colors duration-250 aria-pressed:bg-foreground aria-pressed:text-white';
+const price = (t: (typeof tiers)[number]) => ({ m: t.m, y: t.y, alt: 'Atau ' + t.y + '/tahun, hemat 2 bulan', altY: 'Setara ' + t.yPerMo + '/bulan · hemat 2 bulan' });
+---
+
+<section id="harga" data-billing={config.billing} class="group/harga bg-white px-6 py-24 scroll-mt-3">
+  <div class="max-w-[1200px] mx-auto flex flex-col gap-10">
+    <div class="flex flex-wrap items-end justify-between gap-x-8 gap-y-6">
+      <div class="flex flex-col gap-3.5">
+        <h2 class="h-section text-balance">Harga jelas, tanpa potongan penjualan.</h2>
+        <p class="m-0 text-lg leading-[1.55] text-body text-pretty max-w-[680px]">Bayar bulanan dan berhenti kapan saja, atau tahunan dan hemat 2 bulan.</p>
+      </div>
+      <div class="flex-none inline-flex bg-white border border-border rounded-full p-1">
+        <button data-billing-set="bulanan" aria-pressed={String(!yearly)} class={toggle}>Bulanan</button>
+        <button data-billing-set="tahunan" aria-pressed={String(yearly)} class:list={[toggle, 'inline-flex items-center gap-2']}>
+          Tahunan<span class="text-[11px] font-semibold leading-none text-success bg-success-bg px-[7px] py-1 rounded-full">Hemat 2 bulan</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ≥768px: comparison table (v8) -->
+    <div class="max-md:hidden border border-border rounded-3xl overflow-hidden">
+      <table class="w-full table-fixed border-collapse text-left">
+        <colgroup><col class="w-[30%]" />{tiers.map(() => <col />)}</colgroup>
+        <thead>
+          <tr>
+            <th scope="col" class="p-6 align-bottom border-b border-border text-[13px] font-semibold leading-none tracking-[.06em] uppercase text-muted-foreground">Paket</th>
+            {
+              tiers.map((t) => {
+                const pr = price(t);
+                return (
+                  <th scope="col" class:list={['p-6 align-top border-b border-l border-border font-normal', t.rec && 'bg-accent']}>
+                    <div class="flex flex-col gap-2.5">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="text-[19px] font-semibold leading-none">{t.name}</span>
+                        {t.rec && <span class="text-[11px] font-semibold leading-none text-white bg-primary rounded-full px-2 py-[5px]">Rekomendasi</span>}
+                        {t.soon && <span class="text-[11px] font-semibold leading-none tracking-[.06em] text-warn bg-warn-bg rounded-full px-2 py-[5px]">SEGERA</span>}
+                      </div>
+                      <span class="text-[32px] font-bold leading-none tracking-[-.03em]">
+                        <span class="group-data-[billing=tahunan]/harga:hidden">{pr.m}</span><span class="hidden group-data-[billing=tahunan]/harga:inline">{pr.y}</span><span class="text-sm font-normal tracking-normal text-muted-foreground"><span class="group-data-[billing=tahunan]/harga:hidden">/bulan</span><span class="hidden group-data-[billing=tahunan]/harga:inline">/tahun</span></span>
+                      </span>
+                      <span class="min-h-[35px] text-[12.5px] font-medium leading-[1.4] text-muted-foreground group-data-[billing=tahunan]/harga:hidden">{pr.alt}</span>
+                      <span class="hidden min-h-[35px] text-[12.5px] font-medium leading-[1.4] text-success group-data-[billing=tahunan]/harga:block">{pr.altY}</span>
+                      {t.soon ? <Button variant="muted" size="block" disabled class="rounded-[10px] py-3">Segera</Button> : <Button href={daftar(t.name)} size="block" class="rounded-[10px] py-3">Daftar</Button>}
+                    </div>
+                  </th>
+                );
+              })
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            rows.map((r, ri) => (
+              <tr class:list={[ri % 2 === 1 && 'bg-[#FCFCFD]']}>
+                <th scope="row" class="px-6 py-3.5 border-b border-border-soft text-[15px] font-medium leading-[1.4]">{r.label}</th>
+                {r.cells.map((c, ci) => (
+                  <td class:list={['px-6 py-3.5 border-b border-border-soft border-l border-l-border text-[14.5px] leading-[1.4] text-body', tiers[ci].rec && 'bg-[#F5F8FF]']}>
+                    {c === true ? (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="text-primary" role="img" aria-label="Termasuk"><path d={check} /></svg>
+                    ) : c === false ? (
+                      <span class="block w-3 h-0.5 rounded-full bg-border-strong" role="img" aria-label="Tidak termasuk" />
+                    ) : (
+                      c
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- <768px: one card per tier -->
+    <div class="md:hidden grid gap-4 items-stretch">
+      {
+        tiers.map((t) => (
+          <Card tone={t.rec ? 'accent' : t.soon ? 'soon' : 'default'} lift class="relative rounded-[22px] px-7 py-[30px] flex flex-col gap-5">
+            {t.rec && <span class="absolute -top-[13px] left-7 bg-primary text-white text-xs font-semibold leading-none px-3 py-[7px] rounded-full">Rekomendasi</span>}
+            <div class="flex flex-col gap-2.5">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-lg font-semibold leading-none">{t.name}</span>
+                {t.soon && <Badge variant="soon">SEGERA</Badge>}
+              </div>
+              <p class="m-0 text-[15px] leading-normal text-body">{t.untuk}</p>
+              <div class="flex items-baseline gap-1.5 flex-wrap mt-1.5">
+                <span class="text-[clamp(34px,3.2vw,44px)] font-semibold leading-none tracking-[-.03em]">
+                  <span class="group-data-[billing=tahunan]/harga:hidden">{t.m}</span>
+                  <span class="hidden group-data-[billing=tahunan]/harga:inline">{t.y}</span>
+                </span>
+                <span class="text-[15px] leading-none text-muted-foreground">
+                  <span class="group-data-[billing=tahunan]/harga:hidden">/bulan</span>
+                  <span class="hidden group-data-[billing=tahunan]/harga:inline">/tahun</span>
+                </span>
+              </div>
+              <span class="text-[13.5px] font-medium leading-[1.4] text-muted-foreground group-data-[billing=tahunan]/harga:hidden">Atau {t.y}/tahun, hemat 2 bulan</span>
+              <span class="hidden text-[13.5px] font-medium leading-[1.4] text-success group-data-[billing=tahunan]/harga:inline">Setara {t.yPerMo}/bulan · hemat 2 bulan</span>
+            </div>
+            <div class:list={['flex items-center gap-2 px-3 py-2.5 rounded-[10px] text-sm font-medium leading-[1.3]', t.rec ? 'bg-white' : 'bg-muted']}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F6BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-none">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+              </svg>
+              {t.alamat}
+            </div>
+            <div class="flex flex-col gap-[11px] flex-1">
+              <span class="text-xs font-semibold leading-none tracking-[.06em] uppercase text-muted-foreground">{t.listLabel}</span>
+              <ul class="list-none m-0 p-0 flex flex-col gap-[11px]">
+                {t.items.map((it) => (
+                  <li class="flex items-start gap-2.5 text-[15px] leading-[1.4]">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#12B76A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="flex-none mt-0.5"><path d={check} /></svg>
+                    {it}
+                  </li>
+                ))}
+              </ul>
+              {t.more > 0 && <span class="text-sm font-medium leading-[1.4] text-muted-foreground pl-7">+ {t.more} fitur lain saat paket ini tersedia</span>}
+              <div class:list={['flex items-start gap-2.5 text-[15px] leading-[1.4] border-t border-border pt-3 mt-0.5', t.key === 'mulai' ? 'text-muted-foreground' : 'text-success']}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="flex-none mt-0.5">
+                  <path d={t.key === 'mulai' ? 'M5 12h14' : check} />
+                </svg>
+                <span class="flex flex-col gap-1">
+                  <span><strong class="font-semibold">Setup:</strong> {t.setup}</span>
+                  {t.key !== 'mulai' && <span class="text-[13.5px] leading-normal text-body">Kami isikan 50 produk pertama, atur toko, latih timmu 1 jam, dan dampingi 30 hari setelah tayang.</span>}
+                </span>
+              </div>
+            </div>
+            {t.soon ? (
+              <Button variant="muted" size="block" disabled>Segera</Button>
+            ) : (
+              <Button href={daftar(t.name)} size="block">Daftar</Button>
+            )}
+          </Card>
+        ))
+      }
+    </div>
+
+    <p class="m-0 flex items-start gap-2.5 text-base leading-normal text-body text-pretty">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#12B76A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="flex-none mt-0.5"><path d={check}></path></svg>
+      <span><strong class="font-semibold text-foreground">Berhenti kapan saja.</strong> Tidak ada potong otomatis, domain tetap atas namamu, dan data disimpan 30 hari kalau kamu berubah pikiran.</span>
+    </p>
+    <div class="-mt-4 grid sm:grid-cols-2 gap-3">
+      <div class="bg-muted border border-border rounded-[18px] px-[22px] py-5 flex flex-col gap-1.5">
+        <span class="text-base font-semibold leading-[1.3]">Belum termasuk</span>
+        <p class="m-0 text-[15px] leading-normal text-body text-pretty">Domain (harga asli, sekitar Rp220rb sampai Rp275rb per tahun), foto produk, dan penulisan konten.</p>
+      </div>
+      <div class="bg-muted border border-border rounded-[18px] px-[22px] py-5 flex flex-col gap-1.5">
+        <span class="text-base font-semibold leading-[1.3]">Tanpa potongan penjualan</span>
+        <p class="m-0 text-[15px] leading-normal text-body text-pretty">Biaya pembayaran online hanya dari penyedia pembayaran, di akunmu sendiri.</p>
+      </div>
+    </div>
+
+    <div class="rounded-[28px] bg-perintis text-white px-[clamp(24px,3.4vw,40px)] py-9 grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 items-center">
+      <div class="flex flex-col items-start gap-3.5">
+        {config.showStickers && <Badge variant="sticker" rotate={-3}>Program Perintis</Badge>}
+        <h3 class="m-0 text-[clamp(24px,2.4vw,30px)] leading-[1.18] font-semibold tracking-[-.02em] text-pretty">Gratis 3 bulan untuk 10 brand pertama.</h3>
+        <p class="m-0 text-base leading-[1.55] text-periwinkle text-pretty">Berlaku untuk semua paket. Setelah 3 bulan, harga terkunci selama kamu berlangganan.</p>
+        <Button href="/kontak?topik=program-perintis" variant="sun" class="mt-1 shadow-[0_8px_24px_-10px_rgba(47,107,255,.6)]">Coba gratis 3 bulan · sisa {slotsText} slot</Button>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        <span class="text-sm font-semibold leading-none tracking-[.04em] text-sun">Syaratnya</span>
+        <ul class="list-none m-0 p-0 flex flex-col gap-2.5">
+          {
+            terms.map((t, i) => (
+              <li class="flex items-center gap-3 text-[15.5px] leading-[1.4]">
+                <span class="flex-none size-[26px] rounded-full bg-white/10 border border-white/20 grid place-items-center text-[12.5px] font-semibold leading-none">{i + 1}</span>
+                {t}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Bulanan / Tahunan: both prices are rendered; #harga[data-billing] shows one through group-data variants.
+  const harga = document.getElementById('harga')!;
+  const buttons = harga.querySelectorAll<HTMLButtonElement>('[data-billing-set]');
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      harga.dataset.billing = b.dataset.billingSet;
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    }),
+  );
+</script>

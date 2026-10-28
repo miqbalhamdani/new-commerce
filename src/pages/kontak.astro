@@ -1,0 +1,273 @@
+---
+// Port of "design/Belli Kontak.dc.html", and the sign-up page: every "Coba gratis" / "Daftar" button links here.
+// Submit sends the answers to Web3Forms, which emails them to us. The thank-you panel then offers to continue
+// in WhatsApp with the same answers filled in.
+import Page from '../layouts/Page.astro';
+import { config, demoHref, waHref, waNumber } from '../config';
+
+const topics = ['Daftar paket', 'Program Perintis', 'Fitur dan cara pakai', 'Pindah dari website lama', 'Desain atau fitur khusus'];
+const plans = ['Mulai', 'Katalog', 'Jualan', 'Belum tahu'];
+const channels = ['WhatsApp', 'Instagram', 'Shopee / Tokopedia', 'Toko fisik'];
+const after = [
+  'Kami baca dan balas lewat WhatsApp atau email, biasanya di hari kerja yang sama.',
+  'Kalau cocok, kamu daftar dan tokomu langsung tayang di namatokomu.belli.id.',
+  'Isi produk sendiri, atau kami isikan kalau bayar Katalog atau Jualan tahunan.',
+];
+const fields = [
+  { name: 'nama', label: 'Nama', type: 'text', placeholder: 'Nama lengkap', autocomplete: 'name', required: true },
+  { name: 'brand', label: 'Nama brand', type: 'text', placeholder: 'Sleep Project', autocomplete: 'organization' },
+  { name: 'email', label: 'Email', type: 'email', placeholder: 'kamu@brand.id', autocomplete: 'email' },
+  { name: 'wa', label: 'Nomor WhatsApp', type: 'tel', placeholder: '08xx xxxx xxxx', autocomplete: 'tel' },
+];
+
+const part = 'flex flex-col gap-5 py-8 border-t border-border';
+const h2 = 'm-0 flex items-baseline gap-3 text-[22px] font-semibold leading-[1.3] tracking-[-.01em]';
+const num = 'text-[15px] font-semibold leading-none text-primary';
+const hint = 'm-0 pl-[31px] max-sm:pl-0 text-[15px] leading-normal text-muted-foreground';
+const body = 'flex flex-col gap-[22px] pl-[31px] max-sm:pl-0';
+const label = 'flex items-baseline gap-2 text-[15px] font-semibold leading-[1.3]';
+const input = 'text-base leading-[1.2] text-foreground bg-white border border-border-strong rounded-xl px-4 py-3.5 outline-none focus:border-primary focus:shadow-[0_0_0_4px_var(--color-accent)]';
+const chip =
+  'inline-flex items-center gap-2 cursor-pointer border-[1.5px] border-border-strong bg-white text-body-strong rounded-full px-4 py-[11px] text-[15px] font-medium leading-none transition-colors duration-200 has-checked:bg-accent has-checked:border-primary has-checked:text-primary-hover has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-primary';
+const tick = 'M5 12.5l4.5 4.5L19 7';
+---
+
+<Page title="Kontak · Belli" description="Tanya soal paket, Program Perintis, atau fitur Belli. Dibalas langsung oleh pembuat Belli lewat WhatsApp atau email.">
+  <div class="flex flex-col gap-12">
+    <div class="flex flex-col gap-[18px] max-w-[760px]">
+      <span class="text-[13px] font-semibold leading-none tracking-[.1em] uppercase text-primary">Kontak</span>
+      <h1 class="m-0 text-[clamp(38px,5.4vw,60px)] leading-[1.04] font-semibold tracking-[-.03em]">Mari bicarakan tokomu.</h1>
+      <p class="m-0 text-[19px] leading-[1.65] text-body text-pretty">Isi form singkat di bawah, kira-kira dua menit. Pesanmu dibaca dan dibalas langsung oleh pembuat Belli, bukan bot.</p>
+    </div>
+
+    <div class="flex flex-wrap gap-14 items-start">
+      <div data-sent hidden tabindex="-1" class="flex-[1_1_560px] min-w-0 max-w-[740px] bg-[#ECFDF3] border border-[#ABEFC6] rounded-3xl p-9 max-sm:p-6 flex flex-col gap-3 outline-none">
+        <span class="size-12 rounded-full bg-success-icon text-white grid place-items-center">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d={tick} /></svg>
+        </span>
+        <h2 class="m-0 text-2xl font-semibold leading-[1.25] text-[#054F31]">Pesan terkirim.</h2>
+        <p class="m-0 text-[16.5px] leading-[1.6] text-[#085D3A]">Terima kasih! Kami balas lewat WhatsApp atau email, biasanya di hari kerja yang sama.</p>
+        <div class="mt-1.5 flex flex-wrap gap-3">
+          <a data-sent-wa href={waHref} target="_blank" rel="noopener" class="inline-flex items-center gap-[9px] bg-primary text-white hover:bg-primary-hover hover:text-white text-[15px] font-semibold leading-none px-[18px] py-3.5 rounded-xl no-underline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12z"></path></svg>Lanjut chat di WhatsApp
+          </a>
+          <button type="button" data-reset class="cursor-pointer border border-[#ABEFC6] bg-white text-success text-[15px] font-semibold leading-none px-4 py-3.5 rounded-xl hover:border-success">Kirim pesan lain</button>
+        </div>
+      </div>
+
+      <form id="kontak" data-wa={waNumber} data-key={config.web3formsKey} class="flex-[1_1_560px] min-w-0 max-w-[740px] flex flex-col">
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" class="hidden" />
+        <section class={part}>
+          <div class="flex flex-col gap-1.5">
+            <h2 class={h2}><span class={num}>01</span>Apa yang ingin kamu tanyakan?</h2>
+            <p class={hint}>Boleh pilih lebih dari satu.</p>
+          </div>
+          <div class="flex flex-wrap gap-2 pl-[31px] max-sm:pl-0">
+            {
+              topics.map((t) => (
+                <label class={chip}>
+                  <input type="checkbox" name="topik" value={t} class="sr-only peer" />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="hidden peer-checked:block"><path d={tick} /></svg>
+                  {t}
+                </label>
+              ))
+            }
+          </div>
+        </section>
+
+        <section class={part}>
+          <h2 class={h2}><span class={num}>02</span>Tentang tokomu</h2>
+          <div class={body}>
+            <fieldset class="m-0 p-0 border-0 flex flex-col gap-3">
+              <legend class:list={[label, 'p-0 mb-3']}>Paket yang kamu minati</legend>
+              <div class="flex flex-wrap gap-2">
+                {
+                  plans.map((p) => (
+                    <label class={chip}>
+                      <input type="radio" name="paket" value={p} class="sr-only peer" />
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="hidden peer-checked:block"><path d={tick} /></svg>
+                      {p}
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <fieldset class="m-0 p-0 border-0 flex flex-col gap-3">
+              <legend class:list={[label, 'p-0 mb-3']}>Sekarang jualan lewat<span class="text-sm font-normal text-muted-foreground">boleh lebih dari satu</span></legend>
+              <div class="flex flex-wrap gap-2">
+                {
+                  channels.map((c) => (
+                    <label class={chip}>
+                      <input type="checkbox" name="jualan" value={c} class="sr-only peer" />
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="hidden peer-checked:block"><path d={tick} /></svg>
+                      {c}
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+          </div>
+        </section>
+
+        <section class={part}>
+          <div class="flex flex-col gap-1.5">
+            <h2 class={h2}><span class={num}>03</span>Pesanmu</h2>
+            <p class={hint}>Tidak perlu rapi, tulis apa adanya.</p>
+          </div>
+          <div class={body}>
+            <label class="flex flex-col gap-2">
+              <span class={label}>Ceritakan brand dan kebutuhanmu</span>
+              <textarea name="pesan" rows="5" required placeholder="Misalnya: brand sprei di Bandung, 120 produk, ingin katalog dengan tombol WhatsApp." class:list={[input, 'leading-[1.55] resize-y']}></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section class={part}>
+          <h2 class={h2}><span class={num}>04</span>Kontak</h2>
+          <div class={body}>
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-4">
+              {
+                fields.map((f) => (
+                  <label class="flex flex-col gap-2">
+                    <span class={label}>{f.label}</span>
+                    <input name={f.name} type={f.type} placeholder={f.placeholder} autocomplete={f.autocomplete} required={f.required} class={input} />
+                  </label>
+                ))
+              }
+            </div>
+            <p class="m-0 -mt-2 text-sm leading-normal text-muted-foreground">Isi nomor WhatsApp atau email, supaya kami bisa membalas.</p>
+            <label class="flex flex-col gap-2">
+              <span class={label}>Link toko atau Instagram<span class="text-sm font-normal text-muted-foreground">(opsional)</span></span>
+              <input name="link" type="text" inputmode="url" placeholder="instagram.com/brandmu" class={input} />
+            </label>
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" name="setuju" required data-agree class="flex-none mt-px size-[22px] appearance-none cursor-pointer rounded-md border-[1.5px] border-border-strong bg-white bg-center bg-no-repeat transition-colors duration-200 checked:bg-primary checked:border-primary checked:bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22none%22%20stroke=%22white%22%20stroke-width=%223.4%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20d=%22M5%2012.5l4.5%204.5L19%207%22/%3E%3C/svg%3E')] checked:bg-size-[14px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" />
+              <span class="text-[15px] leading-[1.55] text-body">Saya setuju data ini dipakai untuk membalas pesan saya, sesuai <a href="/kebijakan-privasi" class="text-primary font-medium underline underline-offset-2">Kebijakan Privasi</a>.</span>
+            </label>
+            <button
+              type="submit"
+              disabled
+              class="self-start border-0 cursor-pointer bg-primary text-white text-base font-semibold leading-none px-[26px] py-[17px] rounded-xl shadow-[0_8px_24px_-10px_rgba(47,107,255,.7)] transition-colors duration-200 hover:bg-primary-hover disabled:bg-faint disabled:shadow-none disabled:cursor-default"
+            >
+              Kirim pesan
+            </button>
+            <p data-error role="alert" hidden class="m-0 text-[15px] leading-normal text-[#B42318]">
+              Pesan belum terkirim. Coba lagi sebentar, atau <a href={waHref} class="text-[#B42318] font-semibold underline underline-offset-2">chat langsung lewat WhatsApp</a>.
+            </p>
+          </div>
+        </section>
+      </form>
+
+      <aside class="flex-[0_1_380px] min-w-[280px] flex flex-col gap-4 md:sticky md:top-7">
+        <div class="bg-muted border border-border rounded-3xl p-7 flex flex-col gap-3.5">
+          <h2 class="m-0 text-[21px] font-semibold leading-[1.3]">Lebih suka chat langsung?</h2>
+          <p class="m-0 text-[15.5px] leading-[1.6] text-body">Hari kerja, biasanya di hari yang sama. Yang membalas saya sendiri, bukan bot.</p>
+          <a href={waHref} class="mt-1 flex items-center justify-center gap-[9px] bg-primary text-white hover:bg-primary-hover hover:text-white text-base font-semibold leading-none px-5 py-[15px] rounded-xl no-underline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12z"></path></svg>Chat WhatsApp
+          </a>
+          <a href={`mailto:${config.email}`} class="flex items-center justify-center gap-[9px] bg-white border border-border-strong text-foreground hover:border-primary hover:text-primary text-[15px] font-semibold leading-none px-5 py-3.5 rounded-xl no-underline">{config.email || '[ISI: email]'}</a>
+          <span class="text-sm leading-normal text-muted-foreground pt-1.5 border-t border-border">Iqbal Hamdani · Pembuat Belli<br />Bekasi, Jawa Barat</span>
+        </div>
+        <div class="border border-border rounded-3xl p-7 flex flex-col gap-[18px]">
+          <h2 class="m-0 text-[19px] font-semibold leading-[1.3]">Setelah pesan terkirim</h2>
+          <ol class="m-0 p-0 list-none flex flex-col gap-4">
+            {
+              after.map((t, i) => (
+                <li class="grid grid-cols-[30px_1fr] gap-3 items-start">
+                  <span class="size-7 rounded-full bg-accent text-primary-hover grid place-items-center text-[13px] font-semibold leading-none">{i + 1}</span>
+                  <span class="text-[15px] leading-[1.55] text-body-strong pt-[3px]">{t}</span>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+        <a href={demoHref} target="_blank" rel="noopener" class="flex items-center justify-between gap-3 rounded-[20px] px-6 py-5 bg-accent hover:bg-accent-line no-underline transition-colors duration-200">
+          <span class="flex flex-col gap-1">
+            <span class="text-base font-semibold leading-[1.2] text-foreground">Lihat sendiri, tanpa daftar.</span>
+            <span class="text-sm leading-[1.4] text-body">Buka dashboard toko demo</span>
+          </span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="flex-none"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+        </a>
+      </aside>
+    </div>
+  </div>
+</Page>
+
+<script>
+  // Submit stays disabled until consent is ticked (as the design).
+  const form = document.getElementById('kontak') as HTMLFormElement;
+  const sent = document.querySelector<HTMLElement>('[data-sent]')!;
+  const submit = form.querySelector<HTMLButtonElement>('[type=submit]')!;
+  const agree = form.querySelector<HTMLInputElement>('[data-agree]')!;
+  const error = form.querySelector<HTMLElement>('[data-error]')!;
+  const wa = form.querySelector<HTMLInputElement>('input[name=wa]')!;
+  const email = form.querySelector<HTMLInputElement>('input[name=email]')!;
+  agree.addEventListener('change', () => (submit.disabled = !agree.checked));
+
+  // Links like /kontak?topik=program-perintis&paket=katalog tick the matching chips in advance.
+  const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  for (const [name, value] of new URLSearchParams(location.search))
+    for (const input of form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`)) if (slug(input.value) === value) input.checked = true;
+
+  // We need one way to reply: WhatsApp or email.
+  const needContact = () => wa.setCustomValidity(wa.value.trim() || email.value.trim() ? '' : 'Isi nomor WhatsApp atau email, supaya kami bisa membalas.');
+  wa.addEventListener('input', needContact);
+  email.addEventListener('input', needContact);
+  needContact();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = new FormData(form);
+    const v = (k: string) => f.getAll(k).map(String).map((s) => s.trim()).filter(Boolean).join(', ') || '-';
+    const answers = {
+      Topik: v('topik'),
+      Paket: v('paket'),
+      'Jualan lewat': v('jualan'),
+      Pesan: v('pesan'),
+      Nama: v('nama'),
+      Brand: v('brand'),
+      Email: v('email'),
+      WhatsApp: v('wa'),
+      Link: v('link'),
+    };
+    const label = submit.textContent;
+    submit.disabled = true;
+    submit.textContent = 'Mengirim…';
+    error.hidden = true;
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: form.dataset.key,
+          subject: 'Pesan baru dari belli.id: ' + answers.Topik,
+          from_name: answers.Nama + (answers.Brand === '-' ? '' : ' (' + answers.Brand + ')'),
+          ...(email.value.trim() && { email: email.value.trim() }), // Web3Forms uses it as reply-to
+          ...(f.has('botcheck') && { botcheck: true }), // honeypot: only bots tick it
+          ...answers,
+        }),
+      });
+      if (!(await res.json()).success) throw new Error();
+      (window as any).gtag?.('event', 'kontak_submit', { topik: answers.Topik, paket: answers.Paket });
+      const msg = ['Halo Belli, saya baru kirim pesan lewat form.', ...Object.entries(answers).map(([k, x]) => k + ': ' + x)].join('\n');
+      sent.querySelector<HTMLAnchorElement>('[data-sent-wa]')!.href = 'https://wa.me/' + form.dataset.wa + '?text=' + encodeURIComponent(msg);
+      form.hidden = true;
+      sent.hidden = false;
+      sent.focus();
+    } catch {
+      error.hidden = false;
+    } finally {
+      submit.textContent = label;
+      submit.disabled = !agree.checked;
+    }
+  });
+
+  sent.querySelector('[data-reset]')!.addEventListener('click', () => {
+    form.reset();
+    needContact();
+    submit.disabled = true;
+    sent.hidden = true;
+    form.hidden = false;
+    form.querySelector<HTMLInputElement>('input[name=topik]')!.focus();
+  });
+</script>

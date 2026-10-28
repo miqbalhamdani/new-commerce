@@ -1,0 +1,84 @@
+---
+// Main site header: logo, pill nav, "Coba gratis" and the mobile menu. Dark on the landing hero,
+// light on the blog (design/Belli Blog.dc.html). `current` marks the active nav link.
+import Button from './ui/Button.astro';
+
+type Props = { tone?: 'dark' | 'light'; current?: string };
+
+const { tone = 'dark', current } = Astro.props;
+const nav = [
+  ['/#fitur', 'Fitur'],
+  ['/#contoh', 'Contoh'],
+  ['/#demo', 'Demo'],
+  ['/#harga', 'Harga'],
+  ['/#faq', 'Tanya jawab'],
+  ['/blog', 'Blog'],
+  ['/kontak', 'Kontak'],
+];
+const dark = tone === 'dark';
+---
+
+<div class="relative">
+  <header class:list={['flex items-center justify-between gap-4 px-6 py-[22px]', dark ? 'text-white' : 'text-foreground']}>
+    <a href="/" class="flex items-center gap-2.5 no-underline text-inherit">
+      <span class="size-[34px] rounded-[10px] bg-primary text-white grid place-items-center text-lg font-bold leading-none shadow-[0_0_0_4px_rgba(47,107,255,.25)]">B</span>
+      <span class="text-xl font-semibold leading-none tracking-[-.01em]">Belli</span>
+    </a>
+    <nav class:list={['flex gap-1.5 rounded-full p-[5px] border max-[1040px]:hidden', dark ? 'bg-white/[.07] border-white/10' : 'bg-canvas border-border']}>
+      {
+        nav.map(([href, label]) => (
+          <a
+            href={href}
+            aria-current={href === current ? 'page' : undefined}
+            class:list={[
+              'no-underline text-sm font-medium leading-none px-4 py-[9px] rounded-full whitespace-nowrap',
+              dark
+                ? 'text-white hover:bg-white/10 aria-[current=page]:bg-white/15'
+                : 'text-body-strong hover:bg-white hover:text-foreground aria-[current=page]:bg-white aria-[current=page]:text-foreground aria-[current=page]:shadow-[0_1px_2px_rgba(16,24,40,.08)]',
+            ]}
+          >
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="flex items-center gap-2">
+      <Button href="/kontak?topik=program-perintis" size="sm">Coba gratis</Button>
+      <button
+        data-menu-toggle
+        aria-label="Menu"
+        aria-expanded="false"
+        aria-controls="menu"
+        class:list={[
+          'hidden max-[1040px]:grid place-items-center w-11 h-[42px] p-0 rounded-[10px] border cursor-pointer',
+          dark ? 'border-white/20 bg-white/[.08] text-white' : 'border-border bg-white text-foreground',
+        ]}
+      >
+        <svg data-menu-icon="open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        <svg data-menu-icon="close" hidden width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+  </header>
+  <div id="menu" hidden class="absolute top-[84px] inset-x-4 z-30 flex flex-col p-2 bg-white rounded-2xl border border-border shadow-[0_30px_60px_-20px_rgba(10,19,48,.6)]">
+    {
+      nav.map(([href, label]) => (
+        <a href={href} data-menu-close aria-current={href === current ? 'page' : undefined} class="text-foreground no-underline text-base font-medium leading-none px-4 py-3.5 rounded-[10px] hover:bg-canvas aria-[current=page]:bg-canvas">
+          {label}
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const burger = document.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
+  const menu = document.getElementById('menu')!;
+  const setMenu = (open: boolean) => {
+    menu.hidden = !open;
+    burger.setAttribute('aria-expanded', String(open));
+    burger.querySelector('[data-menu-icon="open"]')!.toggleAttribute('hidden', open);
+    burger.querySelector('[data-menu-icon="close"]')!.toggleAttribute('hidden', !open);
+  };
+  burger.addEventListener('click', () => setMenu(menu.hidden));
+  menu.querySelectorAll('[data-menu-close]').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+</script>

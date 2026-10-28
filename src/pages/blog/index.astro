@@ -1,0 +1,98 @@
+---
+// Port of "design/Belli Blog.dc.html": featured article, category filter, and the grid of all articles.
+import Blog from '../../layouts/Blog.astro';
+import Cover from '../../components/blog/Cover.astro';
+import PostCard from '../../components/blog/PostCard.astro';
+import { CATEGORIES } from '../../content.config';
+import { catKey, categoryStyle, formatDate, getPosts, initials, readTime } from '../../lib/blog';
+
+const posts = await getPosts();
+const featured = posts.find((p) => p.data.featured);
+// With only the featured article there is nothing to list or filter yet.
+const hasMore = posts.some((p) => p !== featured);
+const cats = [
+  { label: 'Semua', count: posts.length },
+  ...CATEGORIES.map((c) => ({ label: c, count: posts.filter((p) => p.data.category === c).length })).filter((c) => c.count > 0),
+];
+---
+
+<Blog title="Blog · Belli" description="Panduan katalog, foto produk, dan jualan lewat WhatsApp, ditulis oleh pembuat Belli.">
+  <div class="max-w-[1200px] mx-auto px-6 pt-12 flex flex-col gap-[18px]">
+    <span class="text-[13px] font-semibold leading-none tracking-[.1em] uppercase text-primary">Blog</span>
+    <h1 class="m-0 max-w-[780px] text-[clamp(40px,5.6vw,64px)] leading-[1.04] font-semibold tracking-[-.03em] text-balance">Catatan untuk brand yang jualan sendiri.</h1>
+    <p class="m-0 max-w-[620px] text-[19px] leading-[1.6] text-body text-pretty">Panduan katalog, foto produk, dan jualan lewat WhatsApp, ditulis oleh pembuat Belli.</p>
+  </div>
+
+  <main data-blog class="max-w-[1248px] mx-auto px-6 pt-12 pb-24 flex flex-col gap-14">
+    {
+      featured && (
+        <a
+          data-featured-block
+          href={`/blog/${featured.id}`}
+          class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] gap-x-10 gap-y-8 items-center no-underline text-inherit hover:text-inherit bg-muted border border-border rounded-[28px] p-3.5 transition-colors duration-250 hover:border-primary"
+        >
+          <Cover post={featured} eager class="aspect-[16/10] rounded-[20px]" widths={[640, 1280]} sizes="(min-width: 1080px) 560px, 100vw" />
+          <div class="pt-3 pb-4 pl-2.5 pr-6 max-sm:px-2.5 flex flex-col items-start gap-[18px]">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span class="text-[12.5px] font-semibold leading-none text-white bg-navy rounded-full px-2.5 py-1.5">Artikel pilihan</span>
+              <span class:list={['text-[12.5px] font-semibold leading-none rounded-full px-2.5 py-1.5', categoryStyle[featured.data.category]]}>{featured.data.category}</span>
+              <span class="text-[13.5px] leading-none text-muted-foreground">{readTime(featured)} baca</span>
+            </div>
+            <h2 class="m-0 text-[clamp(28px,3vw,36px)] leading-[1.15] font-semibold tracking-[-.02em] text-pretty">{featured.data.title}</h2>
+            <p class="m-0 text-[17px] leading-[1.6] text-body text-pretty">{featured.data.excerpt}</p>
+            <div class="flex items-center gap-3">
+              <span class="flex-none size-10 rounded-full bg-primary text-white grid place-items-center text-sm font-bold leading-none">{initials(featured.data.author)}</span>
+              <span class="flex flex-col gap-1">
+                <span class="text-[15px] font-semibold leading-none">{featured.data.author}</span>
+                <span class="text-[13.5px] leading-none text-muted-foreground">{formatDate(featured.data.date)}</span>
+              </span>
+            </div>
+            <span class="inline-flex items-center gap-2 text-base font-semibold leading-none text-primary">
+              Baca artikel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </span>
+          </div>
+        </a>
+      )
+    }
+
+    {hasMore && (<div class="flex flex-col gap-9">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-5">
+        <h2 class="m-0 text-[26px] leading-[1.2] font-semibold tracking-[-.015em]">Semua artikel</h2>
+        <div role="group" aria-label="Filter kategori" class="flex flex-wrap gap-2">
+          {
+            cats.map((c) => (
+              <button
+                type="button"
+                data-cat-set={catKey(c.label)}
+                aria-pressed={String(c.label === 'Semua')}
+                class="group inline-flex items-center gap-2 cursor-pointer rounded-full border border-border bg-white text-body-strong px-3.5 py-2.5 min-h-11 text-[14.5px] font-medium leading-none transition-colors duration-200 hover:border-border-strong aria-pressed:bg-navy aria-pressed:border-navy aria-pressed:text-white"
+              >
+                {c.label}
+                <span class="text-xs font-semibold leading-none rounded-full px-[7px] py-1 bg-canvas text-muted-foreground group-aria-pressed:bg-white/20 group-aria-pressed:text-white">{c.count}</span>
+              </button>
+            ))
+          }
+        </div>
+      </div>
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] gap-x-7 gap-y-12">
+        {posts.map((p) => <PostCard post={p} data-cat={catKey(p.data.category)} data-featured={p === featured ? '' : undefined} hidden={p === featured} />)}
+      </div>
+    </div>)}
+  </main>
+</Blog>
+
+<script>
+  // Category filter. "Semua" shows the featured block and hides its card from the grid (as the design);
+  // a category hides the block and shows every card in that category.
+  const root = document.querySelector<HTMLElement>('[data-blog]')!;
+  const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-cat-set]')];
+  const cards = [...root.querySelectorAll<HTMLElement>('[data-card]')];
+  const featured = root.querySelector<HTMLElement>('[data-featured-block]');
+  for (const b of buttons)
+    b.addEventListener('click', () => {
+      const cat = b.dataset.catSet;
+      for (const o of buttons) o.setAttribute('aria-pressed', String(o === b));
+      if (featured) featured.hidden = cat !== 'semua';
+      for (const c of cards) c.hidden = cat === 'semua' ? 'featured' in c.dataset : c.dataset.cat !== cat;
+    });
+</script>

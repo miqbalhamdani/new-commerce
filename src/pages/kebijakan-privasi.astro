@@ -1,0 +1,157 @@
+---
+// Port of "design/Belli Kebijakan Privasi.dc.html", word for word. Draft: needs legal review before launch.
+import Page from '../layouts/Page.astro';
+import { config, waDisplay } from '../config';
+
+const toc = [
+  'Siapa kami',
+  'Data yang kami kumpulkan',
+  'Untuk apa data dipakai',
+  'Data pembeli di tokomu',
+  'Pihak lain yang terlibat',
+  'Keamanan dan penyimpanan',
+  'Hakmu',
+  'Cookie',
+  'Perubahan dan kontak',
+];
+const showCek = config.showCekTags;
+const section = 'flex flex-col gap-3.5 scroll-mt-7';
+const h2 = 'm-0 flex items-baseline gap-3.5 text-[26px] font-semibold leading-[1.25] tracking-[-.015em]';
+const num = 'flex-none text-base font-semibold leading-none tracking-normal text-primary';
+const p = 'm-0 text-[17px] leading-[1.75] text-body-strong text-pretty';
+const ul = 'm-0 pl-[22px] list-disc flex flex-col gap-2.5 text-[17px] leading-[1.7] text-body-strong';
+const b = 'font-semibold text-foreground';
+const cek = 'text-[11px] font-semibold leading-none text-warn border border-dashed border-[#F79009] rounded-[5px] px-[5px] py-[3px] align-middle';
+---
+
+<Page
+  title="Kebijakan Privasi · Belli"
+  description="Data pribadi apa yang dikumpulkan Belli, untuk apa dipakai, berapa lama disimpan, dan apa saja hakmu."
+>
+  <div class="flex flex-col gap-14">
+    <div class="max-w-[780px] flex flex-col gap-[18px]">
+      <span class="text-[13px] font-semibold leading-none tracking-[.1em] uppercase text-primary">Legal</span>
+      <h1 class="m-0 text-[clamp(38px,5.4vw,60px)] leading-[1.04] font-semibold tracking-[-.03em]">Kebijakan Privasi</h1>
+      <p class="m-0 text-[19px] leading-[1.65] text-body text-pretty">
+        Halaman ini menjelaskan data pribadi apa yang dikumpulkan Belli, untuk apa dipakai, berapa lama disimpan, dan apa saja hakmu. Kebijakan ini disusun mengacu pada UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP).
+      </p>
+      <span class="text-[15px] leading-[1.4] text-muted-foreground">Terakhir diperbarui: 28 Oktober 2026</span>
+      {
+        showCek && (
+          <span class="self-start text-[13.5px] font-medium leading-normal text-warn bg-[#FFFAEB] border border-dashed border-[#F79009] rounded-[10px] px-3.5 py-2.5">
+            CEK: draf, perlu ditinjau ahli hukum sebelum tayang.
+          </span>
+        )
+      }
+    </div>
+
+    <div class="flex flex-wrap gap-14 items-start border-t border-border pt-12">
+      <div class="flex-[0_0_280px] max-md:flex-[1_1_100%] self-stretch">
+        <nav class="md:sticky md:top-7 flex flex-col gap-3" aria-labelledby="toc-title">
+          <h2 id="toc-title" class="m-0 text-[13px] font-semibold leading-none tracking-[.08em] uppercase text-muted-foreground">Daftar isi</h2>
+          <ol class="m-0 p-0 list-none flex flex-col gap-1">
+            {
+              toc.map((t, i) => (
+                <li class="flex gap-3 items-baseline py-[7px]">
+                  <span class="flex-none w-[22px] text-sm font-semibold leading-none text-primary">0{i + 1}</span>
+                  <a href={`#p${i + 1}`} class="text-[15px] font-medium leading-[1.4] text-body-strong no-underline hover:text-primary">{t}</a>
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+      </div>
+
+      <div class="flex-[1_1_480px] min-w-0 max-w-[760px] flex flex-col gap-[52px]">
+        <section id="p1" class={section}>
+          <h2 class={h2}><span class={num}>01</span>{toc[0]}</h2>
+          <p class={p}>
+            Belli adalah layanan website katalog dan toko online untuk brand. Belli dioperasikan oleh Iqbal Hamdani sebagai usaha perorangan, berdomisili di Bekasi, Jawa Barat. Dalam dokumen ini, “kami” berarti Belli, dan “kamu” berarti pemilik atau tim toko yang memakai Belli.
+          </p>
+        </section>
+
+        <section id="p2" class={section}>
+          <h2 class={h2}><span class={num}>02</span>{toc[1]}</h2>
+          <ul class={ul}>
+            <li><strong class={b}>Data akun:</strong> nama, email, nomor WhatsApp, dan kata sandi (disimpan terenkripsi) milikmu dan anggota timmu.</li>
+            <li><strong class={b}>Data toko:</strong> nama brand, logo, produk, varian, harga, foto, dan artikel yang kamu masukkan.</li>
+            <li><strong class={b}>Data tagihan:</strong> paket yang kamu pilih dan riwayat pembayaran langganan.</li>
+            <li><strong class={b}>Data pesanan:</strong> di paket Jualan, data pembeli yang memesan di tokomu, seperti nama, kontak, dan alamat pengiriman.</li>
+            <li><strong class={b}>Data pesan:</strong> nama, nama brand, email atau nomor WhatsApp, dan isi pesan yang kamu kirim lewat form Kontak.</li>
+            <li><strong class={b}>Data teknis:</strong> alamat IP, jenis perangkat, dan catatan akses yang dibutuhkan untuk keamanan dan memperbaiki gangguan.</li>
+          </ul>
+        </section>
+
+        <section id="p3" class={section}>
+          <h2 class={h2}><span class={num}>03</span>{toc[2]}</h2>
+          <ul class={ul}>
+            <li>Menayangkan tokomu dan menjalankan dashboard.</li>
+            <li>Membalas pertanyaanmu lewat WhatsApp atau email.</li>
+            <li>Mengirim tagihan dan pemberitahuan penting tentang akunmu.</li>
+            <li>Menjaga keamanan layanan dan mencegah penyalahgunaan.</li>
+            <li>Memperbaiki Belli berdasarkan cara layanan dipakai.</li>
+          </ul>
+          <p class={p}>Kami tidak menjual datamu dan tidak memakainya untuk iklan pihak lain.</p>
+        </section>
+
+        <section id="p4" class={section}>
+          <h2 class={h2}><span class={num}>04</span>{toc[3]}</h2>
+          <p class={p}>
+            Data pembeli yang masuk lewat tokomu adalah milikmu. Kamu yang menentukan untuk apa data itu dipakai, dan kami hanya memprosesnya untuk menjalankan tokomu. Pastikan kamu memberi tahu pembeli bagaimana kamu memakai data mereka.{' '}
+            {showCek && <span class={cek}>CEK peran pengendali/prosesor sesuai UU PDP</span>}
+          </p>
+        </section>
+
+        <section id="p5" class={section}>
+          <h2 class={h2}><span class={num}>05</span>{toc[4]}</h2>
+          <p class={p}>Untuk menjalankan layanan, sebagian data diproses oleh mitra kami, sebatas yang mereka perlukan:</p>
+          <ul class={ul}>
+            <li>Server dan hosting: Tencent Cloud, dengan server di Jakarta.</li>
+            <li>Jaringan pengiriman konten dan keamanan website: Cloudflare.</li>
+            <li>Pembayaran online di paket Jualan: Midtrans, begitu fitur ini tersedia. Kalau kami menambah penyedia pembayaran lain, namanya kami cantumkan di sini.</li>
+            <li>Pendaftar domain, kalau kami mendaftarkan domain atas namamu: Niagahoster (PT Web Media Technology Indonesia).</li>
+            <li>Pengiriman email: Resend.</li>
+            <li>Penerusan pesan dari form Kontak ke email kami: Web3Forms.</li>
+            {config.gaId && <li>Statistik kunjungan website belli.id: Google Analytics.</li>}
+          </ul>
+          <p class={p}>Kami juga bisa membuka data kalau diwajibkan oleh hukum atau perintah pihak berwenang.</p>
+        </section>
+
+        <section id="p6" class={section}>
+          <h2 class={h2}><span class={num}>06</span>{toc[5]}</h2>
+          <p class={p}>
+            Data tiap toko disimpan terpisah dan hanya bisa dilihat timmu. Kamu atur siapa boleh apa lewat peran pemilik, admin, operasional, dan viewer. Semua halaman memakai HTTPS, dan sistem diperbarui secara otomatis.
+          </p>
+          <p class={p}>
+            Data disimpan selama kamu berlangganan. Kalau kamu berhenti, datanya kami simpan 30 hari: kalau kamu kembali dalam 30 hari, toko langsung tayang lagi seperti semula. Setelah itu dihapus permanen. Server berada di Jakarta, Indonesia.
+          </p>
+        </section>
+
+        <section id="p7" class={section}>
+          <h2 class={h2}><span class={num}>07</span>{toc[6]}</h2>
+          <ul class={ul}>
+            <li>Melihat dan memperbaiki data akun dan tokomu kapan saja lewat dashboard.</li>
+            <li>Mengunduh data pesanan kapan saja, dan meminta data produk dalam bentuk spreadsheet.</li>
+            <li>Meminta datamu dihapus lebih cepat dari 30 hari.</li>
+            <li>Menarik persetujuan atau berhenti menerima pesan dari kami.</li>
+          </ul>
+          <p class={p}>
+            Hubungi kami lewat kontak di bagian 9. Kami menanggapi permintaan paling lambat 3 x 24 jam sejak permintaan kami terima, sesuai UU PDP.
+          </p>
+        </section>
+
+        <section id="p8" class={section}>
+          <h2 class={h2}><span class={num}>08</span>{toc[7]}</h2>
+          <p class={p}>Kami memakai cookie yang diperlukan agar kamu tetap masuk ke dashboard dan agar layanan aman.{config.gaId && ' Website belli.id juga memakai cookie Google Analytics untuk menghitung kunjungan secara keseluruhan, tanpa menyimpan namamu.'}</p>
+        </section>
+
+        <section id="p9" class={section}>
+          <h2 class={h2}><span class={num}>09</span>{toc[8]}</h2>
+          <p class={p}>
+            Kalau kebijakan ini berubah, kami beri tahu lewat email atau dashboard sebelum perubahan berlaku. Pertanyaan soal privasi bisa dikirim ke {config.email || '[ISI: email]'} atau WhatsApp {waDisplay}.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Page>

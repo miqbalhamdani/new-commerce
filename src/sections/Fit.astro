@@ -1,0 +1,51 @@
+---
+const lists = [
+  {
+    label: 'Cocok untuk',
+    yes: true,
+    items: [
+      'Brand dengan produk sendiri: fashion, bedding, kosmetik, makanan kemasan',
+      'Pabrik atau maklon yang butuh katalog B2B dan form penawaran',
+      'Jualan di WA, IG, atau marketplace, dan ingin website sendiri',
+      'Tim kecil yang ingin update produk dan artikel sendiri',
+    ],
+  },
+  {
+    label: 'Belum cocok untuk',
+    yes: false,
+    items: ['Butuh stok tersinkron dengan marketplace', 'Butuh kode diskon', 'Dropshipper tanpa produk sendiri', 'Jualan dalam mata uang selain Rupiah'],
+  },
+];
+const yes = 'M5 12.5l4.5 4.5L19 7';
+const no = 'M6 6l12 12M18 6L6 18';
+---
+
+<section class="bg-white px-6 py-24">
+  <div class="max-w-[1200px] mx-auto flex flex-col gap-11">
+    <h2 class="h-section text-center">Cocok untukmu?</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      {
+        lists.map((l) => (
+          <div class:list={['rounded-3xl p-8 max-sm:p-6 flex flex-col gap-[18px]', l.yes ? 'bg-white border border-border shadow-[0_24px_48px_-36px_rgba(10,19,48,.4)]' : 'bg-canvas']}>
+            <span class:list={['flex items-center gap-2.5 text-xl font-semibold leading-none', !l.yes && 'text-body']}>
+              <span class:list={['size-[34px] rounded-full grid place-items-center', l.yes ? 'bg-success-bg text-success' : 'bg-border text-muted-foreground']}>
+                <svg width={l.yes ? 16 : 14} height={l.yes ? 16 : 14} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d={l.yes ? yes : no} /></svg>
+              </span>
+              {l.label}
+            </span>
+            <ul class="list-none m-0 p-0 flex flex-col gap-[18px]">
+              {l.items.map((it) => (
+                <li class:list={['flex items-start gap-3 text-[16.5px] leading-normal pt-3.5 border-t', l.yes ? 'border-border-soft' : 'border-border text-body']}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" class:list={['flex-none mt-1', l.yes ? 'text-success-icon' : 'text-faint']}>
+                    <path d={l.yes ? yes : no} />
+                  </svg>
+                  {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

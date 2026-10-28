@@ -1,0 +1,44 @@
+---
+// shadcn-style button. Renders <a> when href is set, otherwise <button>. Extra attributes (data-*, type, disabled) pass through.
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'button'> & {
+  href?: string;
+  variant?: keyof typeof variants;
+  size?: keyof typeof sizes;
+  lift?: boolean;
+};
+
+const variants = {
+  default: 'bg-primary text-white hover:bg-primary-hover',
+  'ghost-dark': 'bg-transparent text-white border-[1.5px] border-white/35 hover:bg-white/10',
+  secondary: 'bg-white text-foreground border border-border hover:border-primary',
+  muted: 'bg-border text-muted-foreground',
+  sun: 'bg-sun text-navy hover:bg-[#FFE27A]', // on navy panels
+};
+const sizes = {
+  sm: 'text-sm px-[18px] py-3 rounded-[10px]',
+  md: 'text-[15px] px-[22px] py-3.5 rounded-xl',
+  lg: 'text-base px-[22px] py-[15px] rounded-xl',
+  xl: 'text-base px-6 py-4 rounded-xl',
+  block: 'text-[15px] px-5 py-[15px] rounded-xl', // full-width card buttons
+};
+
+const { href, variant = 'default', size = 'lg', lift = false, class: className, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  href={href}
+  class:list={[
+    'inline-flex items-center justify-center gap-2 font-semibold leading-none no-underline cursor-pointer transition-[background-color,color,border-color,transform] duration-200',
+    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-default',
+    variants[variant],
+    sizes[size],
+    lift && 'shadow-[0_8px_24px_-8px_rgba(47,107,255,.8)] hover:-translate-y-0.5',
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</Tag>

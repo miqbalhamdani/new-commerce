@@ -1,0 +1,22 @@
+---
+// Article cover: the photo, or a navy card with the title when the article has none (as in the design).
+import { Image } from 'astro:assets';
+import Badge from '../ui/Badge.astro';
+import type { Post } from '../../lib/blog';
+
+type Props = { post: Post; class?: string; widths: number[]; sizes: string; eager?: boolean };
+
+const { post, class: className, widths, sizes, eager } = Astro.props;
+const { cover, title, category } = post.data;
+---
+
+{
+  cover ? (
+    <Image src={cover} alt="" widths={widths} sizes={sizes} loading={eager ? 'eager' : 'lazy'} class:list={['block w-full object-cover', className]} />
+  ) : (
+    <div class:list={['bg-hero flex flex-col justify-end items-start gap-2.5 p-[26px] text-white', className]}>
+      <Badge variant="sticker" rotate={-4}>{category === 'Update Belli' ? 'Baru di Belli' : category}</Badge>
+      <span class="text-[clamp(22px,2.2vw,30px)] font-semibold leading-[1.1] tracking-[-.02em] text-pretty">{title}</span>
+    </div>
+  )
+}
