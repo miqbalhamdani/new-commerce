@@ -48,13 +48,15 @@ Articles are Markdown files in `src/content/blog/`. `src/content/blog/_CARA-MENU
 field and the Markdown features (lead paragraph, `##` sections for the table of contents, the
 WhatsApp chat callout, numbered steps).
 
-## Before launch
+## Deploy
 
-Most placeholders are filled (`src/config.ts`: slots, WhatsApp, email, demo login). Still open:
+Cloudflare Pages project `belli` (belli-7xq.pages.dev) builds every push: `main` goes live on
+https://belli.id, other branches get a preview URL. `www.belli.id` redirects to `belli.id` (zone
+redirect rule). Pages installs with npm 10, so after changing dependencies refresh the lock file
+with `npx npm@10 install --package-lock-only`, or the build fails on `npm ci`.
 
-- `gaId` in `src/config.ts`: create a GA4 property with a web stream for belli.id and paste its
-  Measurement ID (`G-…`). The privacy page mentions Google Analytics only once it is set.
-- Demo auto-login needs new-commerce-web PR #32 merged (it reads `/login?u=…&p=…`).
+## Still open
+
 - Legal review of `/kebijakan-privasi` and `/syarat-ketentuan`; their remaining "CEK" notes mark
   what to check. Set `showCekTags: false` after the review.
 - `slotsLeft` in `src/config.ts` is updated by hand when a Perintis slot is taken.
