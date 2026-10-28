@@ -53,7 +53,6 @@ const { gaId } = config;
     {
       gaId && (
         <Fragment>
-          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
           <script is:inline define:vars={{ gaId }}>
             window.dataLayer = window.dataLayer || [];
             function gtag() {
@@ -62,6 +61,13 @@ const { gaId } = config;
             window.gtag = gtag;
             gtag('js', new Date());
             gtag('config', gaId);
+            // gtag.js is 180 KB; fetch it after the page has loaded so it doesn't compete with fonts and CSS. Calls made before then wait in dataLayer.
+            addEventListener('load', () => {
+              const s = document.createElement('script');
+              s.async = true;
+              s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+              document.head.append(s);
+            });
           </script>
         </Fragment>
       )
