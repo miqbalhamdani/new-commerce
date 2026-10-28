@@ -1,7 +1,5 @@
 ---
-import Badge from '../components/ui/Badge.astro';
 import Card from '../components/ui/Card.astro';
-import { config } from '../config';
 
 const OTHERS = ['Marketplace saja', 'Agency + WordPress', 'Shopify'];
 // [label, marketplace, agency, shopify, belli]
@@ -46,7 +44,6 @@ const no = 'M6 6l12 12M18 6L6 18';
                     ) : (
                       v
                     )}
-                    {config.showCekTags && i === 1 && j === 2 && <Badge variant="cek" class="ml-1.5">CEK</Badge>}
                   </td>
                 ))}
                 <td class:list={['p-[18px] text-[14.5px] font-semibold leading-[1.4] bg-accent text-pretty', line]}>

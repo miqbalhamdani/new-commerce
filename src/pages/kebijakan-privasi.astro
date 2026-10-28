@@ -1,5 +1,5 @@
 ---
-// Port of "design/Belli Kebijakan Privasi.dc.html", word for word. Draft: needs legal review before launch.
+// Privacy policy, kept basic: plain facts about what we collect and why, without legal claims that need a lawyer.
 import Page from '../layouts/Page.astro';
 import { config, waDisplay } from '../config';
 
@@ -14,14 +14,12 @@ const toc = [
   'Cookie',
   'Perubahan dan kontak',
 ];
-const showCek = config.showCekTags;
 const section = 'flex flex-col gap-3.5 scroll-mt-7';
 const h2 = 'm-0 flex items-baseline gap-3.5 text-[26px] font-semibold leading-[1.25] tracking-[-.015em]';
 const num = 'flex-none text-base font-semibold leading-none tracking-normal text-primary';
 const p = 'm-0 text-[17px] leading-[1.75] text-body-strong text-pretty';
 const ul = 'm-0 pl-[22px] list-disc flex flex-col gap-2.5 text-[17px] leading-[1.7] text-body-strong';
 const b = 'font-semibold text-foreground';
-const cek = 'text-[11px] font-semibold leading-none text-warn border border-dashed border-[#F79009] rounded-[5px] px-[5px] py-[3px] align-middle';
 ---
 
 <Page
@@ -33,16 +31,9 @@ const cek = 'text-[11px] font-semibold leading-none text-warn border border-dash
       <span class="text-[13px] font-semibold leading-none tracking-[.1em] uppercase text-primary">Legal</span>
       <h1 class="m-0 text-[clamp(38px,5.4vw,60px)] leading-[1.04] font-semibold tracking-[-.03em]">Kebijakan Privasi</h1>
       <p class="m-0 text-[19px] leading-[1.65] text-body text-pretty">
-        Halaman ini menjelaskan data pribadi apa yang dikumpulkan Belli, untuk apa dipakai, berapa lama disimpan, dan apa saja hakmu. Kebijakan ini disusun mengacu pada UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP).
+        Halaman ini menjelaskan data pribadi apa yang dikumpulkan Belli, untuk apa dipakai, berapa lama disimpan, dan apa saja hakmu.
       </p>
       <span class="text-[15px] leading-[1.4] text-muted-foreground">Terakhir diperbarui: 28 Oktober 2026</span>
-      {
-        showCek && (
-          <span class="self-start text-[13.5px] font-medium leading-normal text-warn bg-[#FFFAEB] border border-dashed border-[#F79009] rounded-[10px] px-3.5 py-2.5">
-            CEK: draf, perlu ditinjau ahli hukum sebelum tayang.
-          </span>
-        )
-      }
     </div>
 
     <div class="flex flex-wrap gap-14 items-start border-t border-border pt-12">
@@ -97,8 +88,7 @@ const cek = 'text-[11px] font-semibold leading-none text-warn border border-dash
         <section id="p4" class={section}>
           <h2 class={h2}><span class={num}>04</span>{toc[3]}</h2>
           <p class={p}>
-            Data pembeli yang masuk lewat tokomu adalah milikmu. Kamu yang menentukan untuk apa data itu dipakai, dan kami hanya memprosesnya untuk menjalankan tokomu. Pastikan kamu memberi tahu pembeli bagaimana kamu memakai data mereka.{' '}
-            {showCek && <span class={cek}>CEK peran pengendali/prosesor sesuai UU PDP</span>}
+            Data pembeli yang masuk lewat tokomu adalah milikmu. Kami hanya memprosesnya untuk menjalankan tokomu, dan tidak memakainya untuk keperluan lain.
           </p>
         </section>
 
@@ -133,10 +123,10 @@ const cek = 'text-[11px] font-semibold leading-none text-warn border border-dash
             <li>Melihat dan memperbaiki data akun dan tokomu kapan saja lewat dashboard.</li>
             <li>Mengunduh data pesanan kapan saja, dan meminta data produk dalam bentuk spreadsheet.</li>
             <li>Meminta datamu dihapus lebih cepat dari 30 hari.</li>
-            <li>Menarik persetujuan atau berhenti menerima pesan dari kami.</li>
+            <li>Berhenti menerima pesan dari kami.</li>
           </ul>
           <p class={p}>
-            Hubungi kami lewat kontak di bagian 9. Kami menanggapi permintaan paling lambat 3 x 24 jam sejak permintaan kami terima, sesuai UU PDP.
+            Hubungi kami lewat kontak di bagian 9. Kami menanggapi permintaan paling lambat 3 x 24 jam setelah permintaan kami terima.
           </p>
         </section>
 
@@ -148,7 +138,7 @@ const cek = 'text-[11px] font-semibold leading-none text-warn border border-dash
         <section id="p9" class={section}>
           <h2 class={h2}><span class={num}>09</span>{toc[8]}</h2>
           <p class={p}>
-            Kalau kebijakan ini berubah, kami beri tahu lewat email atau dashboard sebelum perubahan berlaku. Pertanyaan soal privasi bisa dikirim ke {config.email || '[ISI: email]'} atau WhatsApp {waDisplay}.
+            Kalau kebijakan ini berubah, kami beri tahu lewat email atau dashboard sebelum perubahan berlaku. Pertanyaan soal privasi bisa dikirim ke {config.email} atau WhatsApp {waDisplay}.
           </p>
         </section>
       </div>

@@ -1,7 +1,7 @@
 // The design's props panel (Belli Landing Page v6.dc.html, data-props). Edit here, then rebuild.
 export const config = {
   // Program Perintis
-  slotsLeft: 5, // 0 = show the "[ISI: N]" placeholder
+  slotsLeft: 5, // update by hand when a Perintis slot is taken
   whatsappNumber: '085726202606', // local (08…) or international (628…), both work
   // Harga
   billing: 'bulanan' as 'bulanan' | 'tahunan',
@@ -11,8 +11,6 @@ export const config = {
   showCaraMulai: true,
   // Dashboard slider
   autoplay: true,
-  // Editor: internal "CEK" review tags. Set false before launch.
-  showCekTags: true,
   // Style
   showStickers: true,
   // Not in the design's panel
@@ -24,11 +22,11 @@ export const config = {
   gaId: 'G-41WX3FX8QM', // GA4 measurement id, e.g. 'G-XXXXXXX'; empty = no analytics
 };
 
-export const slotsText = config.slotsLeft > 0 ? String(config.slotsLeft) : '[ISI: N]';
+export const slotsText = String(config.slotsLeft);
 // wa.me needs the international form: 0857… becomes 62857….
-export const waNumber = config.whatsappNumber.replace(/\D/g, '').replace(/^0/, '62') || '6281234567890';
+export const waNumber = config.whatsappNumber.replace(/\D/g, '').replace(/^0/, '62');
 // For display: 0857 2620 2606.
-export const waDisplay = config.whatsappNumber ? ('0' + waNumber.slice(2)).replace(/(\d{4})(?=\d)/g, '$1 ') : '[ISI]';
+export const waDisplay = ('0' + waNumber.slice(2)).replace(/(\d{4})(?=\d)/g, '$1 ');
 export const waHref = 'https://wa.me/' + waNumber;
 export const demoHref = `https://admin.belli.id/login?u=${encodeURIComponent(config.demo.email)}&p=${encodeURIComponent(config.demo.password)}`;
 export const jualanLive = config.jualanStatus === 'live';

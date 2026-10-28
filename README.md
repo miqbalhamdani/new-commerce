@@ -57,8 +57,8 @@ with `npx npm@10 install --package-lock-only`, or the build fails on `npm ci`.
 
 ## Still open
 
-- Legal review of `/kebijakan-privasi` and `/syarat-ketentuan`; their remaining "CEK" notes mark
-  what to check. Set `showCekTags: false` after the review.
+- `/kebijakan-privasi` and `/syarat-ketentuan` are kept basic: no UU PDP reference, age limit,
+  liability cap, or court venue. Add those only after a lawyer has reviewed them.
 - `slotsLeft` in `src/config.ts` is updated by hand when a Perintis slot is taken.
 - In the Web3Forms dashboard, restrict the access key to the live domain.
 - The 4 "Segera hadir" examples in `src/sections/Examples.astro`: add `host` and `img` when a demo exists.

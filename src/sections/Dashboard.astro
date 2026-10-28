@@ -5,7 +5,6 @@ import { config, demoHref } from '../config';
 
 const { autoplay } = config;
 const stickers = config.showStickers;
-const showCek = config.showCekTags;
 
 const tabs = [
   { title: 'Ganti harga, langsung tampil', text: 'Tempel dari Excel, isi ke bawah, atau ubah banyak harga sekaligus.' },
@@ -44,7 +43,6 @@ const boxLabel = 'text-[9.5px] font-semibold leading-none text-muted-foreground 
     <div class="flex items-end justify-between gap-6 max-sm:flex-col max-sm:items-start">
       <div class="flex flex-col gap-3">
         <h2 class="h-section">Lihat dashboard-nya</h2>
-        {showCek && <p class="m-0 text-[15px] leading-normal text-muted-foreground">Placeholder · ganti dengan screenshot asli dari toko demo</p>}
       </div>
       <div class="flex gap-2.5 flex-none">
         <button data-prev aria-label="Sebelumnya" class="size-12 rounded-full border border-border-strong bg-white text-foreground cursor-pointer grid place-items-center transition-colors duration-200 hover:border-primary hover:text-primary">
