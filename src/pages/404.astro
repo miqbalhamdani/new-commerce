@@ -1,0 +1,17 @@
+---
+// Cloudflare Pages serves this with status 404 for unknown URLs.
+import Page from '../layouts/Page.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<Page title="Halaman tidak ditemukan · Belli" description="Halaman yang kamu cari tidak ada di belli.id.">
+  <div class="flex flex-col items-start gap-6 max-w-[640px]">
+    <span class="font-mono text-[13.5px] leading-none tracking-[.14em] uppercase text-muted-foreground">404</span>
+    <h1 class="m-0 text-[clamp(38px,5.4vw,60px)] leading-[1.04] font-semibold tracking-[-.03em]">Halaman tidak ditemukan.</h1>
+    <p class="m-0 text-lg leading-normal text-body">Mungkin link-nya salah ketik, atau halamannya sudah dipindah.</p>
+    <div class="flex flex-wrap gap-3">
+      <Button href="/" size="lg">Ke beranda</Button>
+      <Button href="/blog" variant="secondary" size="lg">Baca blog</Button>
+    </div>
+  </div>
+</Page>
