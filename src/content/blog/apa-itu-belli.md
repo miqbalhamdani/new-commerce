@@ -32,7 +32,7 @@ Begini pesan yang masuk ke WhatsApp-mu saat pembeli menekan tombol pesan:
 
 > Pesan yang masuk ke WhatsApp-mu
 >
-> Halo Sleep Project, saya mau pesan **Sprei Tencel Set**, Queen, warna Sage. Masih ready?
+> Halo Lelap, saya mau pesan **Sprei Tencel Set**, Queen, warna Sage. Masih ready?
 
 ## Ganti harga sendiri, langsung tampil
 
@@ -54,7 +54,7 @@ Bayar tahunan dan hemat 2 bulan. Belli tidak memotong penjualanmu, dan kamu bisa
 
 ## Untuk developer dan agency
 
-Belli juga punya API untuk katalog dan blog. Website ACL Cosm dan Sleep Project Indonesia memakai cara ini: datanya diambil dari Belli lewat API, dan pemiliknya mengisi produk sendiri di admin.belli.id. Developer fokus di tampilan, klien mengurus isinya.
+Belli juga punya API untuk katalog dan blog. Website yang dibuat developer sendiri bisa memakai cara ini: datanya diambil dari Belli lewat API, dan pemiliknya mengisi produk sendiri di admin.belli.id. Developer fokus di tampilan, klien mengurus isinya.
 
 ## Cara mulai
 
