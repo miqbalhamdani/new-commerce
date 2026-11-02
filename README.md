@@ -61,8 +61,8 @@ with `npx npm@10 install --package-lock-only`, or the build fails on `npm ci`.
   liability cap, or court venue. Add those only after a lawyer has reviewed them.
 - `slotsLeft` in `src/config.ts` is updated by hand when a Perintis slot is taken.
 - In the Web3Forms dashboard, restrict the access key to the live domain.
-- The 4 "Segera hadir" examples in `src/sections/Examples.astro`: add `host` and `img` when a demo exists.
 
-`public/contoh/*.webp` are 1440×900 screenshots of the two client sites. `public/og.jpg` is the
+`public/contoh/*.webp` are 1440×900 screenshots of the eight demo shops, one per website theme
+(`{slug}.belli.id`, seeded with `demo-seed -theme`). `public/og.jpg` is the
 share image (1200×630, under 300 KB for WhatsApp). `src/assets/fitur/` holds the Unsplash photos in
 the features mock; Astro converts them to sized WebP at build time.

@@ -39,7 +39,7 @@ Astro mengecilkannya otomatis saat build.
 ```md
 > Pesan yang masuk ke WhatsApp-mu
 >
-> Halo Sleep Project, saya mau pesan **Sprei Tencel Set**, Queen, warna Sage. Masih ready?
+> Halo Lelap, saya mau pesan **Sprei Tencel Set**, Queen, warna Sage. Masih ready?
 ```
 
 Penulis lain (selain Iqbal Hamdani) ditambahkan di `AUTHORS` dalam `src/lib/blog.ts`,
