@@ -43,6 +43,8 @@
 
 @layer base {
   html { scroll-behavior: smooth; }
+  /* Anchors land below the sticky SiteHeader: its top-3 plus the 68px stuck bar. */
+  html:has([data-header-bar]) { scroll-padding-top: 80px; }
   body { @apply bg-white font-sans text-foreground antialiased; }
   /* The hidden attribute must beat display utilities (menu, tab copy, progress bar). */
   [hidden] { display: none !important; }
