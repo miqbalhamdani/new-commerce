@@ -24,8 +24,9 @@ scripts that flip `data-*` attributes.
 `data-tab`, `data-prev`, `data-next` and `data-counter`. Autoplay pauses on hover or focus and
 is off with reduced motion or `config.autoplay = false`.
 
-Every "Coba gratis" and "Daftar" button links to `/kontak`, with the topic (and plan) ticked through
-the URL, e.g. `/kontak?topik=program-perintis` or `/kontak?topik=daftar-paket&paket=katalog`. The form
+The pricing cards' "Daftar" buttons go straight to the admin sign-up, https://admin.belli.id/register
+(as does "Daftar" in the developer band). Every "Coba gratis" button links to `/kontak`, with the topic
+ticked through the URL, e.g. `/kontak?topik=program-perintis` (`&paket=katalog` also works). The form
 sends the answers to Web3Forms (`config.web3formsKey`), which emails them to the inbox the key was
 made for. One of WhatsApp or email is required so we can reply; a hidden `botcheck` field catches
 bots. After sending, a thank-you panel offers "Lanjut chat di WhatsApp" with the same answers.
