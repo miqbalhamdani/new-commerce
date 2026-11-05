@@ -21,7 +21,7 @@ const person = AUTHORS[author];
 const others = posts.filter((p) => p !== post);
 const related = [...others.filter((p) => p.data.category === category), ...others.filter((p) => p.data.category !== category)].slice(0, 3);
 const url = new URL(`/blog/${post.id}/`, Astro.site).href;
-// Share image: the cover cropped to 1200×630, else the site's og.jpg.
+// Share image: the cover cropped to 1200×630, else the site's og-v2.jpg.
 const ogImage = cover && (await getImage({ src: cover, width: 1200, height: 630, fit: 'cover', format: 'jpg' }));
 const site = new URL('/', Astro.site).href;
 const schema = [
@@ -33,7 +33,7 @@ const schema = [
     datePublished: date.toISOString(),
     inLanguage: 'id-ID',
     mainEntityOfPage: url,
-    image: new URL(ogImage ? ogImage.src : '/og.jpg', Astro.site).href,
+    image: new URL(ogImage ? ogImage.src : '/og-v2.jpg', Astro.site).href,
     author: { '@type': 'Person', name: author, ...(person?.linkedin && { url: person.linkedin }) },
     publisher: { '@type': 'Organization', name: 'Belli', url: site, logo: { '@type': 'ImageObject', url: site + 'favicon.png' } },
   },

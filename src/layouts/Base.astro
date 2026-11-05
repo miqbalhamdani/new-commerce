@@ -7,7 +7,7 @@ type Props = {
   title?: string;
   description?: string;
   noindex?: boolean; // 404
-  image?: { src: string; alt: string }; // share image, defaults to /og.jpg (1200×630)
+  image?: { src: string; alt: string }; // share image, defaults to /og-v2.jpg (1200×630)
   published?: Date; // marks the page as an article
   schema?: object[]; // JSON-LD
 };
@@ -21,8 +21,8 @@ const {
   schema = [],
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const og = new URL(image?.src ?? '/og.jpg', Astro.site);
-const ogAlt = image?.alt ?? 'Belli: website brand sendiri, ganti harga tanpa developer. Mulai Rp49 ribu per bulan.';
+const og = new URL(image?.src ?? '/og-v2.jpg', Astro.site);
+const ogAlt = image?.alt ?? 'Belli: website brand sendiri, harga dan desain lewat chat dengan Asisten AI. Tanpa potongan penjualan.';
 const { gaId } = config;
 ---
 
