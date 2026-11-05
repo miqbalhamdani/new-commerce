@@ -49,8 +49,8 @@ const ROWS: [string, ...(boolean | string)[]][] = [
 ];
 const cols = TIERS.map((t, i) => (tiers.some((x) => x.key === t.key) ? i : -1)).filter((i) => i >= 0);
 const rows = ROWS.map(([label, ...v]) => ({ label, ai: label === AI.name, cells: cols.map((i) => v[i]) }));
-// Sign-up goes through the Kontak form, with the topic and plan ticked in advance.
-const daftar = (plan: string) => `/kontak?topik=daftar-paket&paket=${plan.toLowerCase()}`;
+// Daftar opens the admin sign-up (same link as DevBand). The register page doesn't take a plan.
+const daftar = 'https://admin.belli.id/register';
 const terms = ['Produk diisi dalam 14 hari', '2 sesi feedback 30 menit', 'Boleh dijadikan studi kasus', 'Ada link “dibuat dengan Belli” di footer'];
 const check = 'M5 12.5l4.5 4.5L19 7';
 const yearly = config.billing === 'tahunan';
@@ -97,7 +97,7 @@ const price = (t: (typeof tiers)[number]) => ({ m: t.m, y: t.y, alt: 'Atau ' + t
                       </span>
                       <span class="min-h-[35px] text-[12.5px] font-medium leading-[1.4] text-muted-foreground group-data-[billing=tahunan]/harga:hidden">{pr.alt}</span>
                       <span class="hidden min-h-[35px] text-[12.5px] font-medium leading-[1.4] text-success group-data-[billing=tahunan]/harga:block">{pr.altY}</span>
-                      {t.soon ? <Button variant="muted" size="block" disabled class="rounded-[10px] py-3">Segera</Button> : <Button href={daftar(t.name)} size="block" class="rounded-[10px] py-3">Daftar</Button>}
+                      {t.soon ? <Button variant="muted" size="block" disabled class="rounded-[10px] py-3">Segera</Button> : <Button href={daftar} size="block" class="rounded-[10px] py-3">Daftar</Button>}
                     </div>
                   </th>
                 );
@@ -206,7 +206,7 @@ const price = (t: (typeof tiers)[number]) => ({ m: t.m, y: t.y, alt: 'Atau ' + t
             {t.soon ? (
               <Button variant="muted" size="block" disabled>Segera</Button>
             ) : (
-              <Button href={daftar(t.name)} size="block">Daftar</Button>
+              <Button href={daftar} size="block">Daftar</Button>
             )}
           </Card>
         ))
