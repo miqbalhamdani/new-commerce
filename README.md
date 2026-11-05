@@ -64,6 +64,6 @@ with `npx npm@10 install --package-lock-only`, or the build fails on `npm ci`.
 - In the Web3Forms dashboard, restrict the access key to the live domain.
 
 `public/contoh/*.webp` are 1440×900 screenshots of the eight demo shops, one per website theme
-(`{slug}.belli.id`, seeded with `demo-seed -theme`). `public/og.jpg` is the
-share image (1200×630, under 300 KB for WhatsApp). `src/assets/fitur/` holds the Unsplash photos in
+(`{slug}.belli.id`, seeded with `demo-seed -theme`). `public/og-v2.jpg` is the
+share image (1200×630, under 300 KB for WhatsApp), the new hero in a card; renamed from og.jpg so link previews refetch it. `src/assets/fitur/` holds the Unsplash photos in
 the features mock; Astro converts them to sized WebP at build time.
