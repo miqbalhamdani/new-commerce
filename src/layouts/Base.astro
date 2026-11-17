@@ -49,7 +49,7 @@ const { gaId } = config;
     <Font cssVariable="--font-outfit" preload />
     <Font cssVariable="--font-caveat" />
     <Font cssVariable="--font-dm-mono" />
-    {schema.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(schema.length === 1 ? schema[0] : schema)} />}
+    {schema.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(schema.length === 1 ? schema[0] : schema).replace(/</g, '\\u003c')} />}
     {
       gaId && (
         <Fragment>
